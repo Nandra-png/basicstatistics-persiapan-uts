@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cara Ngerjain · Joyko CC-23</title>
+<style>
+
+/* ============================================================
+   PAPER SHEET LAYOUT — template default class-with-hermes
+   3 kolom: roadmap (kiri) | kertas (tengah) | info (kanan)
+   Ganti isi <main>, jangan ganti token warna kecuali diminta.
+   ============================================================ */
+:root{
+  --ink:#1c2430;
+  --ink-soft:#4a5568;
+  --red:#c0392b;
+  --blue:#1f5fa8;
+  --paper:#fdfaf2;
+  --rule:rgba(80,120,175,.14);
+  --margin-line:rgba(215,65,65,.55);
+  --line:34px;
+  --edge:#cac3ad;
+  --desk:#e5e1d4;
+  --ok:#1e7a3c;
+  --sticky-yellow:#fff9b0;
+  --sticky-yellow-edge:#e9de89;
+  --sticky-tape:rgba(255,255,255,.68);
+  --sticky-tape-border:rgba(210,200,165,.45);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--desk);
+  background-image:radial-gradient(circle at 20% 0%,#f0ece0 0%,#d8d3c2 70%);
+  color:var(--ink);
+  font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  padding:22px 14px 90px;
+}
+
+/* ---------- 3 KOLOM ---------- */
+.wrap{
+  max-width:1500px;margin:0 auto;
+  display:grid;
+  grid-template-columns:246px minmax(0,920px) 296px;
+  gap:24px;
+  align-items:start;
+  justify-content:center;
+}
+.rail{
+  position:sticky;top:16px;
+  max-height:calc(100vh - 32px);
+  overflow-y:auto;overflow-x:hidden;
+  padding:12px 8px 30px;
+}
+.rail::-webkit-scrollbar{width:5px}
+.rail::-webkit-scrollbar-thumb{background:#c9c2ad;border-radius:3px}
+
+/* kartu panel sticky note (kiri & kanan) */
+.panel{
+  position:relative;
+  background:linear-gradient(175deg, #fffbc7 0%, var(--sticky-yellow) 40%, #fef39c 100%);
+  border:1px solid var(--sticky-yellow-edge);
+  border-radius:2px 3px 6px 3px;
+  box-shadow:
+    0 2px 4px rgba(60,50,20,.08),
+    0 8px 18px rgba(60,50,20,.14),
+    inset 0 1px 0 rgba(255,255,255,.8);
+  padding:20px 16px 16px;
+  margin-bottom:22px;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+/* Washi tape / selotip */
+.panel::before{
+  content:"";
+  position:absolute;
+  top:-9px;left:50%;
+  transform:translateX(-50%);
+  width:64px;height:18px;
+  background:var(--sticky-tape);
+  border:1px dashed var(--sticky-tape-border);
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
+  backdrop-filter:blur(1px);
+  opacity:.9;
+  z-index:2;
+}
+/* Efek sudut lengkung kanan bawah */
+.panel::after{
+  content:"";
+  position:absolute;
+  right:0;bottom:0;
+  width:0;height:0;
+  border-style:solid;
+  border-width:0 0 10px 10px;
+  border-color:transparent transparent rgba(60,50,20,.15) transparent;
+}
+.panel:hover{
+  box-shadow:
+    0 3px 6px rgba(60,50,20,.1),
+    0 12px 24px rgba(60,50,20,.18);
+}
+.rail.left .panel:nth-child(1){transform:rotate(-0.8deg)}
+.rail.left .panel:nth-child(2){transform:rotate(0.6deg)}
+.rail.left .panel:nth-child(3){transform:rotate(-0.5deg)}
+.rail.right .panel:nth-child(1){transform:rotate(0.9deg)}
+.rail.right .panel:nth-child(2){transform:rotate(-0.7deg)}
+.rail.right .panel:nth-child(3){transform:rotate(0.5deg)}
+
+.panel h4{
+  margin:0 0 10px;
+  font-size:11.5px;
+  font-weight:900;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:#61531e;
+  border-bottom:1.5px dashed rgba(150,130,50,.3);
+  padding-bottom:5px;
+}
+
+/* ---------- ROADMAP (KIRI) ---------- */
+.total{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px}
+.total b{font-size:22px;font-weight:800;letter-spacing:-.02em;color:#2c2206}
+.total span{font-size:12px;color:#61531e;font-weight:700}
+.pbar{height:7px;border-radius:999px;background:#e5dc9b;overflow:hidden;margin-bottom:4px}
+.pbar i{display:block;height:100%;width:0;background:var(--red);border-radius:999px;transition:width .35s}
+
+.road{list-style:none;margin:12px 0 0;padding:0;position:relative}
+.road::before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:1.5px;background:#d8cc8a}
+.road li{position:relative;padding:0 0 0 28px;margin:0 0 4px}
+.road a{
+  display:block;text-decoration:none;color:#2b2308;
+  font-size:13px;font-weight:700;line-height:1.35;
+  padding:6px 8px;border-radius:5px;transition:background .15s;
+}
+.road a:hover{background:rgba(255,255,255,.6)}
+.road a small{display:block;font-size:11px;color:#61531e;font-weight:500;margin-top:2px}
+.road .dot{
+  position:absolute;left:4px;top:11px;width:11px;height:11px;border-radius:50%;
+  background:#fff;border:2px solid #b8ab6a;
+}
+.road li.now .dot{border-color:var(--red);background:var(--red);box-shadow:0 0 0 3px rgba(192,57,43,.2)}
+.road li.now a{background:rgba(255,255,255,.8);color:var(--red);box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.road li.done .dot{border-color:var(--ok);background:var(--ok)}
+.road li.done a{color:#5c5438}
+.road li.done a::after{content:" ✓";color:var(--ok);font-weight:800}
+.road li.lock a{color:#8c8266;cursor:not-allowed}
+
+/* ---------- KERTAS (TENGAH) ---------- */
+main{min-width:0}
+.sheet{
+  position:relative;
+  background:var(--paper);
+  background-image:
+    linear-gradient(to right,transparent 0 84px,var(--margin-line) 84px 85.5px,transparent 85.5px),
+    repeating-linear-gradient(to bottom,transparent 0 33px,var(--rule) 33px 34px);
+  background-position:0 0,0 38px;
+  border-radius:4px;
+  border:1px solid #dcd5bf;
+  box-shadow:0 2px 0 #cfc8b4,0 10px 24px rgba(60,50,30,.15);
+  padding:32px 42px 48px 110px;
+  font-size:16px;line-height:1.75;
+  margin:0 0 26px;
+  scroll-margin-top:16px;
+}
+.sheet::before,.sheet::after{
+  content:"";position:absolute;left:28px;width:22px;height:22px;border-radius:50%;
+  background:var(--desk);box-shadow:inset 0 2px 4px rgba(0,0,0,.24),0 0 0 1px #d3ccb8;
+}
+.sheet::before{top:68px}
+.sheet::after{bottom:68px}
+
+h1,h2,h3{line-height:1.3;margin:0;color:var(--ink)}
+.head{display:flex;align-items:flex-start;gap:16px;margin-bottom:12px}
+.badge{
+  flex:0 0 auto;width:56px;height:56px;border-radius:50%;
+  display:grid;place-items:center;background:#fff;border:2.5px solid var(--red);
+  color:var(--red);font-weight:800;font-size:26px;
+  box-shadow:2px 2px 0 rgba(192,57,43,.18);
+}
+.head h2{font-size:23px;font-weight:800;letter-spacing:-.01em}
+.head .sub{font-size:13.5px;color:var(--ink-soft);font-weight:500;margin-top:4px}
+.pts{
+  display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.05em;
+  text-transform:uppercase;color:#7a5b13;background:#fdf3d0;
+  border:1px solid #e6d69a;border-radius:999px;padding:2px 9px;
+  margin-left:6px;vertical-align:2px;
+}
+.sec{
+  font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--blue);margin:18px 0 6px;display:flex;align-items:center;gap:8px;
+}
+.sec::after{content:"";flex:1;height:1px;background:#d8e2ee}
+
+p{margin:6px 0;background:rgba(253,250,242,.85)}
+.step{display:flex;gap:12px;margin:8px 0}
+.step .n{
+  flex:0 0 auto;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;
+  background:var(--red);color:#fff;font-size:12.5px;font-weight:800;margin-top:3px;
+}
+.step .body{flex:1 1 auto;min-width:0;background:rgba(253,250,242,.85)}
+.note{
+  color:var(--red);font-size:14.5px;line-height:1.6;
+  margin:10px 0 10px 36px;padding:8px 14px;
+  background:#fff8f6;border-left:3px solid var(--red);border-radius:0 6px 6px 0;
+}
+.note b{text-decoration:underline;text-underline-offset:2px}
+.aside{
+  font-size:13.5px;color:var(--ink-soft);background:#f4f7fb;
+  border:1px solid #d5e1ee;border-radius:8px;padding:10px 14px;margin:12px 0;line-height:1.65;
+}
+.aside b{color:var(--ink)}
+.ans{
+  margin:12px 0 8px 36px;padding:9px 15px;
+  border:2px solid var(--red);border-radius:4px;background:#fff7f5;line-height:1.7;
+}
+.ans .lbl{
+  font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--red);display:block;margin-bottom:3px;
+}
+.box{display:inline-block;border:2.5px double var(--ink);border-radius:3px;padding:2px 12px;background:#fffdf5}
+.ind{margin-left:36px;background:rgba(253,250,242,.85)}
+.big{margin:6px 0 6px 36px;font-size:18px;background:rgba(253,250,242,.85);padding:2px 0}
+.tblwrap{overflow-x:auto;margin-left:36px}
+table{
+  border-collapse:collapse;margin:8px 0;
+  font-family:'Cambria Math',Cambria,'Segoe UI',serif;font-size:15.5px;line-height:1.5;background:#fff;
+}
+th,td{border:1.6px solid #2b3340;padding:3px 11px;text-align:center;white-space:nowrap;background:#fff}
+thead th{background:#eef2f7;font-weight:700;font-family:'Segoe UI',sans-serif;font-size:13.5px}
+td.T{color:var(--ok);font-weight:700}
+td.F{color:#b03030;font-weight:700}
+
+/* ---------- INFO (KANAN) ---------- */
+.info .kv{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;padding:5px 0;border-bottom:1px dashed rgba(160,140,60,.35)}
+.info .kv:last-child{border-bottom:none}
+.info .kv span{color:#61531e;font-weight:600}
+.info .kv b{font-weight:800;text-align:right;color:#2c2206}
+.formula{
+  font-family:'Cambria Math',Cambria,serif;font-size:14px;line-height:1.55;
+  padding:7px 9px;border-radius:4px;background:rgba(255,255,255,.62);margin-bottom:6px;
+  border-left:3px solid #b8ab6a;
+}
+.formula small{display:block;font-family:'Segoe UI',sans-serif;font-size:11px;color:#61531e;margin-top:2px}
+.lives{display:flex;gap:4px;font-size:16px;line-height:1}
+.voice{display:flex;align-items:center;gap:8px;margin-top:6px}
+.voice button{
+  width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;
+  background:var(--red);color:#fff;font-size:13px;
+}
+.voice .vbar{flex:1;height:5px;border-radius:999px;background:#e5dc9b;overflow:hidden}
+.voice .vbar i{display:block;height:100%;width:0;background:var(--red)}
+.voice .vtime{font-size:11px;color:#61531e;font-variant-numeric:tabular-nums}
+
+/* tombol drawer (HP) */
+.toggles{display:none;gap:8px;position:sticky;top:8px;z-index:60;margin-bottom:12px}
+.toggles button{
+  flex:1;padding:9px;border-radius:4px;border:1px solid var(--sticky-yellow-edge);
+  background:linear-gradient(175deg,#fffbc7,var(--sticky-yellow));font-weight:800;font-size:13px;color:#332906;cursor:pointer;
+  box-shadow:0 2px 6px rgba(0,0,0,.1);
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:1240px){
+  .wrap{grid-template-columns:220px minmax(0,1fr)}
+  .rail.right{display:none}
+  .toggles{display:flex}
+  .rail.right.open{
+    display:block;position:fixed;top:0;right:0;bottom:0;width:300px;max-height:none;
+    z-index:70;background:var(--desk);padding:14px;box-shadow:-8px 0 24px rgba(40,30,10,.25);overflow:auto;
+  }
+}
+@media (max-width:900px){
+  .wrap{grid-template-columns:minmax(0,1fr)}
+  .rail.left{
+    display:none;position:fixed;top:0;left:0;bottom:0;width:290px;max-height:none;
+    z-index:70;background:var(--desk);padding:14px;box-shadow:8px 0 24px rgba(40,30,10,.25);overflow:auto;
+  }
+  .rail.left.open{display:block}
+  .sheet{padding:22px 16px 26px 62px;font-size:15px;line-height:1.7;background-image:
+    linear-gradient(to right,transparent 0 42px,var(--margin-line) 42px 43.4px,transparent 43.4px),
+    repeating-linear-gradient(to bottom,transparent 0 33px,var(--rule) 33px 34px)}
+  .sheet::before,.sheet::after{left:14px;width:15px;height:15px}
+  .head{gap:10px}
+  .head h2{font-size:18px}
+  .badge{width:42px;height:42px;font-size:19px}
+  table{font-size:12.5px}
+  th,td{padding:2px 5px}
+  .tblwrap,.big,.ind,.note,.ans{margin-left:0}
+}
+@media print{
+  body{background:#fff;padding:0}
+  .rail,.toggles{display:none!important}
+  .wrap{display:block;max-width:none}
+  .sheet{box-shadow:none;border:none;border-radius:0;margin:0;page-break-after:always;max-width:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+.code{font-family:'Consolas',ui-monospace,monospace;font-size:13px;line-height:1.62;background:#fffdf5;border:1.5px solid #ddd4bd;border-left:4px solid var(--blue);border-radius:6px;padding:9px 12px;margin:8px 0 10px;overflow-x:auto;white-space:pre;color:#1e2530}
+.mono{font-family:'Consolas',ui-monospace,monospace;font-size:.93em;background:#f1ece0;border-radius:4px;padding:1px 5px;border:1px solid #e2dac6}
+ul.tight{margin:6px 0 6px 18px;padding:0}
+ul.tight li{margin:5px 0;font-size:14.5px;line-height:1.6}
+.fb-block{font-family:'Cambria Math',Georgia,serif;font-size:15px;background:#fffdf5;border:1.5px solid #ddd4bd;border-left:4px solid var(--red);border-radius:6px;padding:8px 12px;margin:8px 0 10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:650px){.grid2{grid-template-columns:1fr}}
+.qmeta{font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin:14px 0 6px}
+.dq{font-size:16.5px;font-weight:600;line-height:1.55;margin:4px 0 12px}
+.opts{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.opt{text-align:left;font:inherit;font-size:14.5px;line-height:1.45;cursor:pointer;padding:10px 13px;border-radius:9px;border:1.5px solid var(--edge);background:#fffdf5;color:var(--ink);transition:.14s}
+.opt:hover:not(:disabled){border-color:var(--blue)}
+.opt.ok{border-color:var(--ok);background:#f0fbf2;box-shadow:inset 3px 0 0 var(--ok)}
+.opt.no{border-color:var(--red);background:#fff5f3;box-shadow:inset 3px 0 0 var(--red)}
+.nextbtn{font:inherit;font-weight:700;font-size:14px;cursor:pointer;padding:9px 18px;border-radius:9px;border:none;background:var(--ink);color:#fffdf5}
+.fb{margin-top:10px;font-size:14px;line-height:1.62;padding:9px 13px;border-radius:8px;background:#f7f4ea;border-left:3px solid var(--ink-soft)}
+.fb.ok{background:#f0fbf2;border-left-color:var(--ok);color:#146c2e}
+.fb.bad{background:#fff5f3;border-left-color:var(--red);color:#a5281c}
+.track2{height:6px;border-radius:999px;background:#e3dcc8;overflow:hidden;margin-top:8px}
+.track2 i{display:block;height:100%;width:0;background:var(--red);transition:width .3s}
+.donebox{text-align:center;padding:14px 0}
+.donebox .sc{font-size:40px;font-weight:800;color:var(--red);line-height:1.1}
+.btn2{font:inherit;font-weight:700;cursor:pointer;padding:10px 20px;border-radius:10px;border:1.5px solid var(--ink);background:var(--red);color:#fff;margin-top:12px}
+</style>
+</head>
+<body>
+<div class="toggles">
+  <button id="tLeft" type="button">☰ Roadmap</button>
+  <button id="tRight" type="button">ⓘ Info</button>
+</div>
+<div class="wrap">
+
+<aside class="rail left" id="railLeft">
+  <div class="panel">
+    <h4>Navigasi</h4>
+    <ul class="road" id="road">
+      <li class="now"><span class="dot"></span><a href="#c0">Tombol dasar<small>SHIFT, M+, nCr</small></a></li>
+      <li><span class="dot"></span><a href="#c1">Soal 1<small>Persen</small></a></li>
+      <li><span class="dot"></span><a href="#c2">Soal 2<small>ΣX, ΣX², kuartil</small></a></li>
+      <li><span class="dot"></span><a href="#c3">Soal 3<small>E(X), nCr</small></a></li>
+      <li><span class="dot"></span><a href="#c4">Soal 4<small>Z</small></a></li>
+      <li><span class="dot"></span><a href="#c5">Soal 5<small>IQR</small></a></li>
+    </ul>
+  </div>
+  <div class="panel"><h4>Balik</h4><a href="index.html" style="color:var(--blue);font-weight:700;text-decoration:none;border-bottom:1px solid var(--blue)">← Latihan UTS</a></div>
+</aside>
+
+<main>
+<section class="sheet" id="c0">
+  <div class="kode">JOYKO CC-23 · TOMBOL PER SOAL</div>
+  <h1 style="font-size:24px;margin-top:4px">Cara Ngerjain di Kalkulator</h1>
+  <div class="note">Kalkulator ini satu keluarga dengan Casio seri MS. Untuk ujian, jangan pakai mode STAT — akumulasi pakai <b>M+</b>, baca total dengan <b>RCL M</b>.</div>
+  <div class="sec">Tombol dasar</div>
+  <pre class="code">SHIFT        tombol kuning (fungsi atas)
+ALPHA        tombol merah (variabel)
+M+ / RCL M   tambah ke memori / baca memori
+√            akar
+x²           kuadrat
+^            pangkat
+nCr          kombinasi (di atas tombol ÷ / SHIFT)
+ln           log natural (SHIFT dari e^x)</pre>
+</section>
+
+<section class="sheet" id="c1">
+  <div class="head"><div class="badge">1</div><div><h2>Soal 1 · Persen &amp; Tabel</h2><div class="sub">cukup bagi, tidak perlu tombol khusus</div></div></div>
+  <pre class="code">23 ÷ 60 =                 → 0,38333
+23 ÷ 60 × 100 =           → 38,333
+14 ÷ 30 =                 → 0,46667
+0,46667 − 0,3 =           → 0,16667 (bukti tidak independen)</pre>
+</section>
+
+<section class="sheet" id="c2">
+  <div class="head"><div class="badge">2</div><div><h2>Soal 2 · Mean, Variansi, Kuartil</h2><div class="sub">akumulasi ΣX dan ΣX²</div></div></div>
+  <div class="sec">ΣX</div>
+  <pre class="code">AC  →  8 M+ 10 M+ 11 M+ 12 M+ 12 M+ 13 M+ 14 M+
+        15 M+ 15 M+ 16 M+ 18 M+ 20 M+ 22 M+ 24 M+ 25 M+
+RCL M                     → 235
+235 ÷ 15 =                → 15,6667</pre>
+  <div class="sec">ΣX²</div>
+  <pre class="code">AC  →  8 x² M+ 10 x² M+ 11 x² M+ 12 x² M+ ... 25 x² M+
+RCL M                     → 4053
+( 4053 − 235 x² ÷ 15 ) ÷ 14 =    → 26,494
+√                         → 5,1472</pre>
+  <div class="sec">Kuartil (data ke-4 dan ke-12)</div>
+  <pre class="code">posisi Q1 = (15+1) ÷ 4 = 4    → data ke-4 = 12
+posisi Q3 = 3 × 4 = 12        → data ke-12 = 20</pre>
+</section>
+
+<section class="sheet" id="c3">
+  <div class="head"><div class="badge">3</div><div><h2>Soal 3 · E(X) &amp; Var(X)</h2><div class="sub">pakai M+ untuk ΣxP(x)</div></div></div>
+  <pre class="code">0 × 0,10 = M+
+1 × 0,25 = M+
+2 × 0,35 = M+
+3 × 0,20 = M+
+4 × 0,10 = M+
+RCL M                     → 1,95      (E(X))
+
+AC  → 0 x² × 0,10 M+ 1 x² × 0,25 M+ ...
+RCL M                     → 5,05
+5,05 − 1,95 x² =          → 1,2475    (Var)
+√                         → 1,1169</pre>
+  <div class="sec">Binomial &amp; Poisson</div>
+  <pre class="code">12 nCr 2 =                → 66
+0,05 x² 3 =  ...  pakai ^ : 0,05 ^ 3 =  → 0,000125
+e^(-λ):  SHIFT ln (-) 2 = → 0,13534
+3! :  3 SHIFT x! =        → 6</pre>
+</section>
+
+<section class="sheet" id="c4">
+  <div class="head"><div class="badge">4</div><div><h2>Soal 4 · Z</h2><div class="sub">satu rumus, dua arah</div></div></div>
+  <pre class="code">Z:   ( 60 − 72 ) ÷ 8 =    → −1,5
+X:   72 + 1,28 × 8 =      → 82,24</pre>
+  <div class="note">Nilai Z dari tabel dibaca manual. Kalkulator cuma dipakai untuk transformasi.</div>
+</section>
+
+<section class="sheet" id="c5">
+  <div class="head"><div class="badge">5</div><div><h2>Soal 5 · IQR &amp; Pagar</h2><div class="sub">tiga baris selesai</div></div></div>
+  <pre class="code">82 − 62 =                 → 20        (IQR A)
+85 − 55 =                 → 30        (IQR B)
+55 − 1,5 × 30 =           → 10        (pagar bawah)
+85 + 1,5 × 30 =           → 130       (pagar atas)</pre>
+</section>
+</main>
+
+<aside class="rail right" id="railRight">
+  <div class="panel info">
+    <h4>Ujian</h4>
+    <div class="kv"><span>Matkul</span><b>Basic Statistics</b></div>
+    <div class="kv"><span>Kode</span><b>STAT6190031</b></div>
+    <div class="kv"><span>Dosen</span><b>Dr. Dani Suandi</b></div>
+    <div class="kv"><span>Sifat</span><b>Open book</b></div>
+    <div class="kv"><span>Nyawa</span><b id="lives">♥ ♥ ♥</b></div>
+    <div class="kv"><span>Streak</span><b id="streak">0</b></div>
+    <div class="kv"><span>Drill</span><b id="dcnt">0 / 20</b></div>
+    <div class="track2"><i id="dprog"></i></div>
+  </div>
+  <div class="panel">
+    <h4>Rumus cepat</h4>
+    <div class="fb-block">P(A|B) = P(A∩B) / P(B)</div>
+    <div class="fb-block">s² = [ΣX² − (ΣX)²/n] / (n−1)</div>
+    <div class="fb-block">Z = (X − μ) / σ</div>
+    <div class="fb-block">IQR = Q3 − Q1</div>
+  </div>
+  <div class="panel">
+    <h4>Jebakan dosen</h4>
+    <div class="fb-block" style="font-family:inherit;font-size:12.5px">NIM / ID = nominal<br>at least = ≥<br>variansi sampel bagi n−1<br>tabel Z = luas kiri</div>
+  </div>
+</aside>
+</div>
+<script>
+
+/* ponytail: drawer + scrollspy + progress aja. Engine drill tetap di file terpisah. */
+(function(){
+  var L = document.getElementById('railLeft');
+  var R = document.getElementById('railRight');
+  var tl = document.getElementById('tLeft');
+  var tr = document.getElementById('tRight');
+  if (tl && L) tl.addEventListener('click', function(){ L.classList.toggle('open'); if (R) R.classList.remove('open'); });
+  if (tr && R) tr.addEventListener('click', function(){ R.classList.toggle('open'); if (L) L.classList.remove('open'); });
+  if (L) L.addEventListener('click', function(e){ if (e.target.tagName === 'A') L.classList.remove('open'); });
+
+  var items = [].slice.call(document.querySelectorAll('#road li'));
+  var sheets = [].slice.call(document.querySelectorAll('main .sheet'));
+  function paint(){
+    var done = items.filter(function(li){ return li.classList.contains('done'); }).length;
+    var pct = items.length ? Math.round(done / items.length * 100) : 0;
+    var p = document.getElementById('pct'), f = document.getElementById('pfill'), c = document.getElementById('cnt');
+    if (p) p.textContent = pct + '%';
+    if (f) f.style.width = pct + '%';
+    if (c) c.textContent = done + ' / ' + items.length;
+  }
+  paint();
+
+  if ('IntersectionObserver' in window && sheets.length) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        var id = en.target.id;
+        items.forEach(function(li){
+          var a = li.querySelector('a');
+          li.classList.toggle('now', !!a && a.getAttribute('href') === '#' + id && !li.classList.contains('done'));
+        });
+      });
+    }, { rootMargin: '-40% 0px -50% 0px' });
+    sheets.forEach(function(s){ io.observe(s); });
+  }
+})();
+</script>
+</body>
+</html>

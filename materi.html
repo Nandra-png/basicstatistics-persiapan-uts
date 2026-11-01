@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Buku Pegangan Materi PPT · Basic Statistics UTS</title>
+<style>
+
+/* ============================================================
+   PAPER SHEET LAYOUT — template default class-with-hermes
+   3 kolom: roadmap (kiri) | kertas (tengah) | info (kanan)
+   Ganti isi <main>, jangan ganti token warna kecuali diminta.
+   ============================================================ */
+:root{
+  --ink:#1c2430;
+  --ink-soft:#4a5568;
+  --red:#c0392b;
+  --blue:#1f5fa8;
+  --paper:#fdfaf2;
+  --rule:rgba(80,120,175,.14);
+  --margin-line:rgba(215,65,65,.55);
+  --line:34px;
+  --edge:#cac3ad;
+  --desk:#e5e1d4;
+  --ok:#1e7a3c;
+  --sticky-yellow:#fff9b0;
+  --sticky-yellow-edge:#e9de89;
+  --sticky-tape:rgba(255,255,255,.68);
+  --sticky-tape-border:rgba(210,200,165,.45);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--desk);
+  background-image:radial-gradient(circle at 20% 0%,#f0ece0 0%,#d8d3c2 70%);
+  color:var(--ink);
+  font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  padding:22px 14px 90px;
+}
+
+/* ---------- 3 KOLOM ---------- */
+.wrap{
+  max-width:1500px;margin:0 auto;
+  display:grid;
+  grid-template-columns:246px minmax(0,920px) 296px;
+  gap:24px;
+  align-items:start;
+  justify-content:center;
+}
+.rail{
+  position:sticky;top:16px;
+  max-height:calc(100vh - 32px);
+  overflow-y:auto;overflow-x:hidden;
+  padding:12px 8px 30px;
+}
+.rail::-webkit-scrollbar{width:5px}
+.rail::-webkit-scrollbar-thumb{background:#c9c2ad;border-radius:3px}
+
+/* kartu panel sticky note (kiri & kanan) */
+.panel{
+  position:relative;
+  background:linear-gradient(175deg, #fffbc7 0%, var(--sticky-yellow) 40%, #fef39c 100%);
+  border:1px solid var(--sticky-yellow-edge);
+  border-radius:2px 3px 6px 3px;
+  box-shadow:
+    0 2px 4px rgba(60,50,20,.08),
+    0 8px 18px rgba(60,50,20,.14),
+    inset 0 1px 0 rgba(255,255,255,.8);
+  padding:20px 16px 16px;
+  margin-bottom:22px;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+/* Washi tape / selotip */
+.panel::before{
+  content:"";
+  position:absolute;
+  top:-9px;left:50%;
+  transform:translateX(-50%);
+  width:64px;height:18px;
+  background:var(--sticky-tape);
+  border:1px dashed var(--sticky-tape-border);
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
+  backdrop-filter:blur(1px);
+  opacity:.9;
+  z-index:2;
+}
+/* Efek sudut lengkung kanan bawah */
+.panel::after{
+  content:"";
+  position:absolute;
+  right:0;bottom:0;
+  width:0;height:0;
+  border-style:solid;
+  border-width:0 0 10px 10px;
+  border-color:transparent transparent rgba(60,50,20,.15) transparent;
+}
+.panel:hover{
+  box-shadow:
+    0 3px 6px rgba(60,50,20,.1),
+    0 12px 24px rgba(60,50,20,.18);
+}
+.rail.left .panel:nth-child(1){transform:rotate(-0.8deg)}
+.rail.left .panel:nth-child(2){transform:rotate(0.6deg)}
+.rail.left .panel:nth-child(3){transform:rotate(-0.5deg)}
+.rail.right .panel:nth-child(1){transform:rotate(0.9deg)}
+.rail.right .panel:nth-child(2){transform:rotate(-0.7deg)}
+.rail.right .panel:nth-child(3){transform:rotate(0.5deg)}
+
+.panel h4{
+  margin:0 0 10px;
+  font-size:11.5px;
+  font-weight:900;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:#61531e;
+  border-bottom:1.5px dashed rgba(150,130,50,.3);
+  padding-bottom:5px;
+}
+
+/* ---------- ROADMAP (KIRI) ---------- */
+.total{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px}
+.total b{font-size:22px;font-weight:800;letter-spacing:-.02em;color:#2c2206}
+.total span{font-size:12px;color:#61531e;font-weight:700}
+.pbar{height:7px;border-radius:999px;background:#e5dc9b;overflow:hidden;margin-bottom:4px}
+.pbar i{display:block;height:100%;width:0;background:var(--red);border-radius:999px;transition:width .35s}
+
+.road{list-style:none;margin:12px 0 0;padding:0;position:relative}
+.road::before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:1.5px;background:#d8cc8a}
+.road li{position:relative;padding:0 0 0 28px;margin:0 0 4px}
+.road a{
+  display:block;text-decoration:none;color:#2b2308;
+  font-size:13px;font-weight:700;line-height:1.35;
+  padding:6px 8px;border-radius:5px;transition:background .15s;
+}
+.road a:hover{background:rgba(255,255,255,.6)}
+.road a small{display:block;font-size:11px;color:#61531e;font-weight:500;margin-top:2px}
+.road .dot{
+  position:absolute;left:4px;top:11px;width:11px;height:11px;border-radius:50%;
+  background:#fff;border:2px solid #b8ab6a;
+}
+.road li.now .dot{border-color:var(--red);background:var(--red);box-shadow:0 0 0 3px rgba(192,57,43,.2)}
+.road li.now a{background:rgba(255,255,255,.8);color:var(--red);box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.road li.done .dot{border-color:var(--ok);background:var(--ok)}
+.road li.done a{color:#5c5438}
+.road li.done a::after{content:" ✓";color:var(--ok);font-weight:800}
+.road li.lock a{color:#8c8266;cursor:not-allowed}
+
+/* ---------- KERTAS (TENGAH) ---------- */
+main{min-width:0}
+.sheet{
+  position:relative;
+  background:var(--paper);
+  background-image:
+    linear-gradient(to right,transparent 0 84px,var(--margin-line) 84px 85.5px,transparent 85.5px),
+    repeating-linear-gradient(to bottom,transparent 0 33px,var(--rule) 33px 34px);
+  background-position:0 0,0 38px;
+  border-radius:4px;
+  border:1px solid #dcd5bf;
+  box-shadow:0 2px 0 #cfc8b4,0 10px 24px rgba(60,50,30,.15);
+  padding:32px 42px 48px 110px;
+  font-size:16px;line-height:1.75;
+  margin:0 0 26px;
+  scroll-margin-top:16px;
+}
+.sheet::before,.sheet::after{
+  content:"";position:absolute;left:28px;width:22px;height:22px;border-radius:50%;
+  background:var(--desk);box-shadow:inset 0 2px 4px rgba(0,0,0,.24),0 0 0 1px #d3ccb8;
+}
+.sheet::before{top:68px}
+.sheet::after{bottom:68px}
+
+h1,h2,h3{line-height:1.3;margin:0;color:var(--ink)}
+.head{display:flex;align-items:flex-start;gap:16px;margin-bottom:12px}
+.badge{
+  flex:0 0 auto;width:56px;height:56px;border-radius:50%;
+  display:grid;place-items:center;background:#fff;border:2.5px solid var(--red);
+  color:var(--red);font-weight:800;font-size:26px;
+  box-shadow:2px 2px 0 rgba(192,57,43,.18);
+}
+.head h2{font-size:23px;font-weight:800;letter-spacing:-.01em}
+.head .sub{font-size:13.5px;color:var(--ink-soft);font-weight:500;margin-top:4px}
+.pts{
+  display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.05em;
+  text-transform:uppercase;color:#7a5b13;background:#fdf3d0;
+  border:1px solid #e6d69a;border-radius:999px;padding:2px 9px;
+  margin-left:6px;vertical-align:2px;
+}
+.sec{
+  font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--blue);margin:18px 0 6px;display:flex;align-items:center;gap:8px;
+}
+.sec::after{content:"";flex:1;height:1px;background:#d8e2ee}
+
+p{margin:6px 0;background:rgba(253,250,242,.85)}
+.step{display:flex;gap:12px;margin:8px 0}
+.step .n{
+  flex:0 0 auto;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;
+  background:var(--red);color:#fff;font-size:12.5px;font-weight:800;margin-top:3px;
+}
+.step .body{flex:1 1 auto;min-width:0;background:rgba(253,250,242,.85)}
+.note{
+  color:var(--red);font-size:14.5px;line-height:1.6;
+  margin:10px 0 10px 36px;padding:8px 14px;
+  background:#fff8f6;border-left:3px solid var(--red);border-radius:0 6px 6px 0;
+}
+.note b{text-decoration:underline;text-underline-offset:2px}
+.aside{
+  font-size:13.5px;color:var(--ink-soft);background:#f4f7fb;
+  border:1px solid #d5e1ee;border-radius:8px;padding:10px 14px;margin:12px 0;line-height:1.65;
+}
+.aside b{color:var(--ink)}
+.ans{
+  margin:12px 0 8px 36px;padding:9px 15px;
+  border:2px solid var(--red);border-radius:4px;background:#fff7f5;line-height:1.7;
+}
+.ans .lbl{
+  font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--red);display:block;margin-bottom:3px;
+}
+.box{display:inline-block;border:2.5px double var(--ink);border-radius:3px;padding:2px 12px;background:#fffdf5}
+.ind{margin-left:36px;background:rgba(253,250,242,.85)}
+.big{margin:6px 0 6px 36px;font-size:18px;background:rgba(253,250,242,.85);padding:2px 0}
+.tblwrap{overflow-x:auto;margin-left:36px}
+table{
+  border-collapse:collapse;margin:8px 0;
+  font-family:'Cambria Math',Cambria,'Segoe UI',serif;font-size:15.5px;line-height:1.5;background:#fff;
+}
+th,td{border:1.6px solid #2b3340;padding:3px 11px;text-align:center;white-space:nowrap;background:#fff}
+thead th{background:#eef2f7;font-weight:700;font-family:'Segoe UI',sans-serif;font-size:13.5px}
+td.T{color:var(--ok);font-weight:700}
+td.F{color:#b03030;font-weight:700}
+
+/* ---------- INFO (KANAN) ---------- */
+.info .kv{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;padding:5px 0;border-bottom:1px dashed rgba(160,140,60,.35)}
+.info .kv:last-child{border-bottom:none}
+.info .kv span{color:#61531e;font-weight:600}
+.info .kv b{font-weight:800;text-align:right;color:#2c2206}
+.formula{
+  font-family:'Cambria Math',Cambria,serif;font-size:14px;line-height:1.55;
+  padding:7px 9px;border-radius:4px;background:rgba(255,255,255,.62);margin-bottom:6px;
+  border-left:3px solid #b8ab6a;
+}
+.formula small{display:block;font-family:'Segoe UI',sans-serif;font-size:11px;color:#61531e;margin-top:2px}
+.lives{display:flex;gap:4px;font-size:16px;line-height:1}
+.voice{display:flex;align-items:center;gap:8px;margin-top:6px}
+.voice button{
+  width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;
+  background:var(--red);color:#fff;font-size:13px;
+}
+.voice .vbar{flex:1;height:5px;border-radius:999px;background:#e5dc9b;overflow:hidden}
+.voice .vbar i{display:block;height:100%;width:0;background:var(--red)}
+.voice .vtime{font-size:11px;color:#61531e;font-variant-numeric:tabular-nums}
+
+/* tombol drawer (HP) */
+.toggles{display:none;gap:8px;position:sticky;top:8px;z-index:60;margin-bottom:12px}
+.toggles button{
+  flex:1;padding:9px;border-radius:4px;border:1px solid var(--sticky-yellow-edge);
+  background:linear-gradient(175deg,#fffbc7,var(--sticky-yellow));font-weight:800;font-size:13px;color:#332906;cursor:pointer;
+  box-shadow:0 2px 6px rgba(0,0,0,.1);
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:1240px){
+  .wrap{grid-template-columns:220px minmax(0,1fr)}
+  .rail.right{display:none}
+  .toggles{display:flex}
+  .rail.right.open{
+    display:block;position:fixed;top:0;right:0;bottom:0;width:300px;max-height:none;
+    z-index:70;background:var(--desk);padding:14px;box-shadow:-8px 0 24px rgba(40,30,10,.25);overflow:auto;
+  }
+}
+@media (max-width:900px){
+  .wrap{grid-template-columns:minmax(0,1fr)}
+  .rail.left{
+    display:none;position:fixed;top:0;left:0;bottom:0;width:290px;max-height:none;
+    z-index:70;background:var(--desk);padding:14px;box-shadow:8px 0 24px rgba(40,30,10,.25);overflow:auto;
+  }
+  .rail.left.open{display:block}
+  .sheet{padding:22px 16px 26px 62px;font-size:15px;line-height:1.7;background-image:
+    linear-gradient(to right,transparent 0 42px,var(--margin-line) 42px 43.4px,transparent 43.4px),
+    repeating-linear-gradient(to bottom,transparent 0 33px,var(--rule) 33px 34px)}
+  .sheet::before,.sheet::after{left:14px;width:15px;height:15px}
+  .head{gap:10px}
+  .head h2{font-size:18px}
+  .badge{width:42px;height:42px;font-size:19px}
+  table{font-size:12.5px}
+  th,td{padding:2px 5px}
+  .tblwrap,.big,.ind,.note,.ans{margin-left:0}
+}
+@media print{
+  body{background:#fff;padding:0}
+  .rail,.toggles{display:none!important}
+  .wrap{display:block;max-width:none}
+  .sheet{box-shadow:none;border:none;border-radius:0;margin:0;page-break-after:always;max-width:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ---------- matematika ---------- */
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;
+      padding:0 3px;font-size:.95em;line-height:1.2}
+.frac .top{border-bottom:1.5px solid currentColor;padding:0 3px 1px}
+.frac .bot{padding:1px 3px 0}
+.binom{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;
+       font-size:.92em;line-height:1.15;padding:0 2px}
+.binom .over{border-top:1.5px solid currentColor;padding-top:1px}
+.rad{border-top:1.5px solid currentColor;padding:0 3px}
+sup,sub{font-size:.72em;line-height:0}
+.formula{font-size:15px;line-height:2.1;letter-spacing:.2px}
+.formula .frac{font-size:.9em}
+
+/* ---------- layout ---------- */
+.code{font-family:'Consolas',ui-monospace,monospace;font-size:13px;line-height:1.62;background:#fffdf5;
+      border:1.5px solid #ddd4bd;border-left:4px solid var(--blue);border-radius:6px;padding:9px 12px;
+      margin:8px 0 10px;overflow-x:auto;white-space:pre;color:#1e2530}
+.mono{font-family:'Consolas',ui-monospace,monospace;font-size:.93em;background:#f1ece0;border-radius:4px;padding:1px 5px;border:1px solid #e2dac6}
+ul.tight{margin:6px 0 6px 18px;padding:0}
+ul.tight li{margin:6px 0;font-size:14.5px;line-height:1.65}
+.fb-block{font-size:14.5px;background:#fffdf5;border:1.5px solid #ddd4bd;border-left:4px solid var(--red);
+          border-radius:6px;padding:9px 12px;margin:9px 0;line-height:1.95}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:650px){.grid2{grid-template-columns:1fr}}
+
+.nav-tabs{display:flex;gap:8px;margin-bottom:18px;border-bottom:2px solid var(--edge);padding-bottom:10px;overflow-x:auto}
+.nav-tab{padding:8px 14px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;
+         color:var(--ink);background:#f2ede2;border:1.5px solid var(--edge);white-space:nowrap}
+.nav-tab.active{background:var(--red);color:#fff;border-color:var(--red)}
+.nav-tab:hover:not(.active){background:#e8e0d0}
+
+/* ---------- PRAKTEK DULU ---------- */
+.praktek-card{background:#f4fbf0;border:2px solid #4a8c2a;border-radius:10px;padding:14px 18px;margin:16px 0}
+.praktek-card .ptag{display:inline-block;background:#4a8c2a;color:#fff;font-weight:800;font-size:11.5px;
+                    padding:3px 10px;border-radius:4px;margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em}
+.praktek-card h3{margin:4px 0 8px;font-size:17px;color:#2b5a12}
+
+/* ---------- FORMULA HERO ---------- */
+.formula-hero{background:#fffef8;border:2px solid #1f5f8b;border-radius:10px;padding:14px 18px;margin:14px 0}
+.formula-hero .fname{font-size:16px;font-weight:800;color:#1f5f8b;display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.formula-hero .alias{background:#e2effa;color:#104064;font-size:11.5px;padding:3px 10px;border-radius:14px;
+                     border:1px solid #b8d9f2;font-weight:800;letter-spacing:.03em}
+.formula-hero .kapan{font-size:13.5px;line-height:1.75;color:#333;margin:10px 0 0;padding:8px 0 0 12px;border-left:3px solid #b8d9f2}
+
+/* ---------- ANALOGI ---------- */
+.analogi{background:#fefbf2;border:1.5px dashed #c49742;border-left:5px solid #d48b14;border-radius:8px;padding:14px 16px;margin:14px 0}
+.analogi h4{margin:0 0 6px;color:#8f5600;font-size:15px;font-weight:800}
+.analogi p{margin:5px 0;font-size:14px;line-height:1.75}
+.analogi .kesimpulan{background:#fff;border:1px solid #ebd8b0;border-radius:6px;padding:9px 12px;margin-top:10px;
+                     font-size:13.5px;color:#613e05;font-weight:700;line-height:1.65}
+
+/* ---------- lain ---------- */
+.trap-card{background:#fff5f3;border:1.5px solid #f1cfc8;border-left:4px solid var(--red);border-radius:8px;padding:12px 16px;margin:10px 0}
+.trap-card b{color:var(--red);font-size:14.5px}
+.self-test{background:#f7f5ec;border:1.5px dashed #cfc6af;border-radius:8px;padding:14px;margin:16px 0}
+.reveal-btn{font:inherit;font-weight:700;font-size:13px;cursor:pointer;padding:6px 14px;border-radius:6px;
+            border:1.5px solid var(--ink);background:#fff;margin-top:8px}
+.reveal-content{margin-top:10px;padding-top:10px;border-top:1px dashed #dcd3be;display:none}
+.worked{background:#fdfcf7;border:1.5px solid #d9d1bc;border-left:4px solid var(--ok);border-radius:8px;padding:12px 16px;margin:12px 0}
+.worked h4{margin:0 0 8px;font-size:14px;color:var(--ok);font-weight:800;letter-spacing:.03em;text-transform:uppercase}
+
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.rumus-tbl{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0}
+.rumus-tbl th{background:#eef3f7;text-align:left;padding:8px 10px;border:1px solid #cdd8e0;font-size:12.5px}
+.rumus-tbl td{padding:8px 10px;border:1px solid #e0dccd;vertical-align:top;line-height:1.6}
+.rumus-tbl td:first-child{font-weight:800;color:#1f5f8b}
+
+</style>
+</head>
+<body>
+<div class="toggles">
+  <button id="tLeft" type="button">☰ Menu Nav</button>
+  <button id="tRight" type="button">📌 Catatan Sticky</button>
+</div>
+<div class="wrap">
+
+<aside class="rail left" id="railLeft">
+  <div class="panel">
+    <h4>Navigasi Materi</h4>
+    <ul class="road" id="road">
+      <li class="now"><span class="dot"></span><a href="#m0">Pengantar<small>Peta Teori</small></a></li>
+      <li><span class="dot"></span><a href="#m1">Bab 1 · NOIR<small>Skala &amp; Sampling</small></a></li>
+      <li><span class="dot"></span><a href="#m2">Bab 2 · Kelompok<small>Mean, Med, Var, CV</small></a></li>
+      <li><span class="dot"></span><a href="#m3">Bab 3 · Peluang<small>Hukum &amp; Kontingensi</small></a></li>
+      <li><span class="dot"></span><a href="#m4">Bab 4 · Diskrit<small>E(X), Binomial, Poisson</small></a></li>
+      <li><span class="dot"></span><a href="#m5">Bab 5 · Normal Z<small>Z-score &amp; Tabel</small></a></li>
+    </ul>
+  </div>
+  <div class="panel">
+    <h4>Halaman Lain</h4>
+    <p style="margin:4px 0 8px;font-size:13px;line-height:1.5">Lanjut ke pembahasan soal UTS atau panduan kalkulator:</p>
+    <a href="uts.html" style="display:block;margin-bottom:6px;color:var(--red);font-weight:700">🎯 2. Breakdown UTS →</a>
+    <a href="kalkulator.html" style="display:block;color:var(--blue);font-weight:700">🖩 3. Kalkulator &amp; Latihan →</a>
+  </div>
+</aside>
+
+<main>
+<div class="nav-tabs"><a href="materi.html" class="nav-tab active">📖 1. Materi</a><a href="rangkuman.html" class="nav-tab">🧠 2. Rangkuman PDF</a><a href="uts.html" class="nav-tab">🎯 3. Breakdown UTS</a><a href="kalkulator.html" class="nav-tab">🖩 4. Kalkulator</a></div>
+
+<section class="sheet" id="m0">
+  <div class="kode">STAT6190031 · DR. DANI SUANDI · KELAS DASAR</div>
+  <h1 style="font-size:26px;font-weight:800;margin-top:4px">Buku Pegangan Konsep &amp; Contoh PPT
+    <br><span style="font-size:16px;font-weight:600;color:var(--ink-soft)">Dipaparkan Dari Nol · 8 PPT Resmi BINUS (Session 1 – 7)</span></h1>
+  
+  <p style="margin:12px 0 16px;line-height:1.7">
+    Halaman ini didesain buat lu yang ngerasa <i>"gatau apa-apa"</i> atau bingung pas dosen nerangin cepat di kelas. 
+    Semua istilah dijelaskan dari nol dengan analogi logis sehari-hari, diikuti rumus resmi, jebakan ujian, 
+    dan <b>contoh soal asli slide PPT dosen yang dibedah tuntas langkah per langkah</b>.
+  </p>
+
+  <div class="sec">Peta Belajar Teori (5 Bab Kunci UTS)</div>
+  <div class="step"><div class="n">1</div><div class="body"><b>Bab 1 (Sesi 1 &amp; 2):</b> Skala Data (NOIR), Sampling Methods, 4 Survey Errors, dan Tabel Kontingensi.</div></div>
+  <div class="step"><div class="n">2</div><div class="body"><b>Bab 2 (Sesi 2 &amp; 3):</b> Distribusi Frekuensi Berkelompok, Mean, Median, Modus, Variansi Data Kelompok, dan CV.</div></div>
+  <div class="step"><div class="n">3</div><div class="body"><b>Bab 3 (Sesi 4):</b> Teori Probabilitas, Aturan Penjumlahan, Komplemen, dan Peluang Bersyarat (Tabel Silang).</div></div>
+  <div class="step"><div class="n">4</div><div class="body"><b>Bab 4 (Sesi 5 &amp; 6):</b> Distribusi Diskrit: Nilai Harapan E(X), Variansi Var(X), Binomial, Poisson, &amp; Hipergeometrik.</div></div>
+  <div class="step"><div class="n">5</div><div class="body"><b>Bab 5 (Sesi 7):</b> Distribusi Normal Kontinu, Standarisasi Z-Score, Membaca Tabel Z Kiri, dan Transformasi Balik X.</div></div>
+</section>
+
+<!-- BAB 1 -->
+<section class="sheet" id="m1">
+  <div class="head"><div class="badge">1</div><div>
+    <h2>Bab 1 · Definisi Data, Skala NOIR &amp; Sampling</h2>
+    <div class="sub">PPT Sesi 1 &amp; 2 · Fondasi Pengelompokan Data</div>
+  </div></div>
+
+  <div class="sec">1. Populasi vs Sampel (Huruf Yunani vs Huruf Latin)</div>
+  <p>Statistika itu ilmu menarik kesimpulan tentang kelompok besar dengan cuma memeriksa kelompok kecil:</p>
+  <ul class="tight">
+    <li><b>Populasi (N):</b> Seluruh individu/objek yang ingin diteliti. Angka pengukurnya disebut <b>Parameter</b>. Simbolnya huruf Yunani: Rata-rata (μ), Standar Deviasi (σ), Proporsi (p).</li>
+    <li><b>Sampel (n):</b> Sebagian kecil dari populasi yang benar-benar kita kumpulkan datanya. Angka pengukurnya disebut <b>Statistik</b>. Simbolnya huruf Latin: Rata-rata (x̄), Standar Deviasi (s), Proporsi (p̂).</li>
+  </ul>
+
+  <div class="sec">2. Jembatan Keledai 4 Skala Pengukuran: N - O - I - R</div>
+  <p>Jangan hafalkan definisinya, gunakan <b>uji logika bertingkat</b> ini:</p>
+  
+  <div class="tblwrap"><table>
+    <thead><tr><th>Skala</th><th>Uji Logika</th><th>Ciri Khas</th><th>Contoh Nyata</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Nominal</b></td>
+        <td>Bisa diurutkan secara adil?<br><b>TIDAK BISA</b></td>
+        <td>Hanya label pembeda atau nama kategori. Operasi hitung (+, −, ×, ÷) tidak bermakna sama sekali.</td>
+        <td>Jenis Kelamin, Agama, Merek Laptop, Jurusan, Nomor Rekening, <b>NIM Mahasiswa</b>.</td>
+      </tr>
+      <tr>
+        <td><b>Ordinal</b></td>
+        <td>Bisa diurutkan? <b>YA</b><br>Jarak antar tingkat pasti sama? <b>TIDAK</b></td>
+        <td>Punya tingkatan/ranking, tapi selisih antar ranking tidak bisa diukur persis.</td>
+        <td>Tingkat Kepuasan (Puas vs Tidak Puas), Bintang Hotel (1–5), Juara Lomba (1, 2, 3), Ukuran Baju (S, M, L, XL).</td>
+      </tr>
+      <tr>
+        <td><b>Interval</b></td>
+        <td>Jarak antar angka sama? <b>YA</b><br>Angka 0 artinya tiada/kosong? <b>TIDAK</b></td>
+        <td>Jarak bernilai tetap, tapi <b>tidak punya nol mutlak</b>. Angka nol hanyalah titik perjanjian skala.</td>
+        <td>Suhu 0<sup></sup>circC (bukan berarti tidak ada suhu/panas), Tahun Kalender Masehi (tahun 0 bukan awal alam semesta), Skor IQ.</td>
+      </tr>
+      <tr>
+        <td><b>Rasio (Ratio)</b></td>
+        <td>Punya nol mutlak (0 = kosong total)?<br><b>YA PUNYA</b></td>
+        <td>Bisa diperbandingkan kelipatannya (misal: "dua kali lipat", "setengahnya"). Skala paling sempurna.</td>
+        <td>Gaji (0 = tidak dapat uang sama sekali), Berat Badan (0 kg = tidak ada massa), Jarak Tempuh, Waktu Tunggu, Usia.</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <div class="trap-card">
+    <b>⚠️ Jebakan Dosen Soal Skala:</b>
+    <br>Jika di soal ujian ada <i>"Nomor Induk Mahasiswa (NIM)"</i>, <i>"Nomor Responden"</i>, atau <i>"Kode Pos"</i>, mentang-mentang isinya deretan angka, mahasiswa sering jawab Interval atau Rasio. <b>Itu SALAH!</b> Jawabannya adalah <b>NOMINAL</b> karena fungsinya murni sebagai label/nama penanda identitas, bukan kuantitas yang bisa dijumlah atau dirata-ratakan.
+  </div>
+
+  <div class="sec">3. Metode Penarikan Sampel (Sampling) &amp; 4 Survey Errors</div>
+  <ul class="tight">
+    <li><b>Simple Random:</b> Setiap orang punya nomor undian, diacak murni (peluang terpilih sama rata).</li>
+    <li><b>Systematic:</b> Menghitung interval kelipatan k = N/n. Contoh: pilih setiap orang kelipatan ke-10 di antrean.</li>
+    <li><b>Stratified:</b> Populasi dibagi menjadi lapisan homogen (Strata, misal: angkatan 2024, 2025, 2026), lalu dari <i>setiap</i> strata diambil beberapa orang secara acak.</li>
+    <li><b>Cluster:</b> Populasi dibagi jadi gugus wilayah mini yang heterogen (Cluster, misal: RT atau gedung kantor), lalu beberapa cluster dipilih acak dan <i>seluruh orang di dalam cluster itu</i> diteliti.</li>
+  </ul>
+  
+  <p><b>4 Sumber Kesalahan Survei (Survey Errors):</b></p>
+  <ul class="tight">
+    <li><b>Coverage Error:</b> Kerangka daftar populasi tidak lengkap (misal survei online mengabaikan warga yang tak punya internet).</li>
+    <li><b>Nonresponse Error:</b> Orang yang terpilih menolak menjawab atau tidak mengangkat telepon.</li>
+    <li><b>Sampling Error:</b> Perbedaan angka alami antara sampel acak dan populasi asli (pasti ada, disebut <i>margin of error</i>).</li>
+    <li><b>Measurement Error:</b> Kesalahan akibat pertanyaan menjebak/ambigu, pewawancara salah catat, atau responden berbohong.</li>
+  </ul>
+
+  <div class="worked">
+    <h4>Contoh PPT Bedah 1: Mengidentifikasi Skala Data &amp; Galat Survei</h4>
+    <p><b>Soal PPT:</b> Suatu departemen HRD mengirimkan kuesioner kepada 200 karyawan melalui email untuk mengukur kepuasan kerja (skala 1–5), mencatat departemen (IT, Sales, HR), masa kerja (tahun), dan gaji bulanan. Hanya 110 karyawan yang membalas email.</p>
+    <p><b>Bedah Tuntas:</b></p>
+    <ul class="tight">
+      <li><b>Departemen:</b> Skala <b>Nominal</b> (label kelompok kerja).</li>
+      <li><b>Tingkat Kepuasan (1–5):</b> Skala <b>Ordinal</b> (ada urutan kepuasan, selisih 4 ke 5 belum tentu setara 1 ke 2).</li>
+      <li><b>Masa Kerja &amp; Gaji:</b> Skala <b>Rasio</b> (punya nol mutlak; 0 tahun = belum mulai kerja, 0 rupiah = tanpa gaji).</li>
+      <li><b>Galat yang Terjadi:</b> Terjadi <b>Nonresponse Error</b> karena ada 90 karyawan terpilih yang tidak membalas email, berpotensi membuat hasil survei bias ke karyawan yang rajin cek email saja.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- BAB 2 -->
+<section class="sheet" id="m2">
+  <div class="head"><div class="badge">2</div><div>
+    <h2>Bab 2 · Distribusi Frekuensi &amp; Ukuran Pemusatan Data</h2>
+    <div class="sub">PPT Sesi 2 &amp; 3 · Mengolah Data Berkelompok (Grouped Data)</div>
+  </div></div>
+
+  <div class="sec">1. Rumus Membuat Tabel Distribusi Frekuensi</div>
+  <ol class="tight">
+    <li><b>Rentang (Range):</b> R = X<sub>max</sub> - X<sub>min</sub></li>
+    <li><b>Banyak Kelas (k):</b> Aturan 2ᵏ ≥ n atau Aturan Sturges: k = 1 + 3,322 log<sub>10</sub>(n)</li>
+    <li><b>Lebar Kelas (w):</b> w = <span class="frac"><span class="top">R</span><span class="bot">k</span></span> (selalu bulatkan ke atas ke angka bilangan bulat terdekat)</li>
+    <li><b>Titik Tengah Kelas (Midpoint m):</b> mᵢ = <span class="frac"><span class="top">Batas Bawah + Batas Atas</span><span class="bot">2</span></span></li>
+  </ol>
+
+  <div class="sec">2. Rumus Pemusatan &amp; Variansi Data Berkelompok</div>
+  <div class="formula-card">
+    <b>A. Rata-Rata Sampel (Mean) Data Kelompok:</b>
+    x̄ = <span class="frac"><span class="top">Σ (fᵢ · mᵢ)</span><span class="bot">n</span></span>
+    <i>Keterangan: fᵢ = frekuensi kelas ke-i, mᵢ = titik tengah kelas ke-i, n = Σ fᵢ.</i>
+  </div>
+
+  <div class="formula-card">
+    <b>B. Median Data Kelompok (Me):</b>
+    Me = L + ( <span class="frac"><span class="top"><span class="frac"><span class="top">n</span><span class="bot">2</span></span> - F<sub>sebelum</sub></span><span class="bot">f<sub>med</sub></span></span> ) × w
+    <i>Keterangan:</i>
+    <br>• L = Tepi bawah kelas median (Batas Bawah - 0,5)
+    <br>• n/2 = Letak urutan tengah
+    <br>• F<sub>sebelum</sub> = Frekuensi kumulatif kelas <i>sebelum</i> kelas median
+    <br>• f<sub>med</sub> = Frekuensi asli dari kelas median itu sendiri
+    <br>• w = Lebar/panjang kelas
+  </div>
+
+  <div class="formula-card">
+    <b>C. Variansi &amp; Standar Deviasi Sampel Data Kelompok:</b>
+    s² = <span class="frac"><span class="top">Σ (fᵢ · mᵢ²) - <span class="frac"><span class="top">(Σ fᵢ · mᵢ)²</span><span class="bot">n</span></span></span><span class="bot">n - 1</span></span>
+    s = √<span class="rad">s²</span>
+    <i>Koefisien Variasi (CV): CV = (<span class="frac"><span class="top">s</span><span class="bot">x̄</span></span>) × 100% (tanpa satuan, untuk membandingkan sebaran antar kelompok).</i>
+  </div>
+
+  <div class="worked">
+    <h4>Contoh PPT Bedah 2: Hitung Mean &amp; Standar Deviasi Data Kelompok</h4>
+    <p><b>Data Penjualan Harian 20 Hari Toko (diambil dari PPT Sesi 3):</b></p>
+    <div class="tblwrap"><table>
+      <thead><tr><th>Kelas Penjualan (Juta Rp)</th><th>Frekuensi (f)</th><th>Midpoint (m)</th><th>f · m</th><th>m²</th><th>f · m²</th></tr></thead>
+      <tbody>
+        <tr><td>10 – 14</td><td>3</td><td>12</td><td>36</td><td>144</td><td>432</td></tr>
+        <tr><td>15 – 19</td><td>6</td><td>17</td><td>102</td><td>289</td><td>1.734</td></tr>
+        <tr><td>20 – 24</td><td>8</td><td>22</td><td>176</td><td>484</td><td>3.872</td></tr>
+        <tr><td>25 – 29</td><td>3</td><td>27</td><td>81</td><td>729</td><td>2.187</td></tr>
+        <tr><td><b>Total (Σ)</b></td><td><b>n = 20</b></td><td>-</td><td><b>395</b></td><td>-</td><td><b>8.225</b></td></tr>
+      </tbody>
+    </table></div>
+    <p><b>Langkah Hitung Rinci:</b></p>
+    <ul class="tight">
+      <li><b>Mean (x̄):</b> <span class="frac"><span class="top">Σ f · m</span><span class="bot">n</span></span> = <span class="frac"><span class="top">395</span><span class="bot">20</span></span> = <b>19,75 Juta Rp</b>.</li>
+      <li><b>Letak Median:</b> Posisi n/2 = 20/2 = 10. Frekuensi kumulatif: Kelas 1 = 3, Kelas 2 = 9, Kelas 3 = 17. Posisi 10 ada di Kelas 3 (20–24).
+        <br>L = 19,5; F<sub>sebelum</sub> = 9; f<sub>med</sub> = 8; w = 5.
+        <br>Me = 19,5 + (<span class="frac"><span class="top">10 - 9</span><span class="bot">8</span></span>) × 5 = 19,5 + (<span class="frac"><span class="top">1</span><span class="bot">8</span></span>) × 5 = 19,5 + 0,625 = <b>20,125 Juta Rp</b>.</li>
+      <li><b>Variansi Sampel (s²):</b>
+        <br>Pembilang = Σ f · m² - <span class="frac"><span class="top">(Σ f · m)²</span><span class="bot">n</span></span> = 8.225 - <span class="frac"><span class="top">395²</span><span class="bot">20</span></span> = 8.225 - <span class="frac"><span class="top">156.025</span><span class="bot">20</span></span> = 8.225 - 7.801,25 = 423,75.
+        <br>Penyebut = n - 1 = 20 - 1 = 19.
+        <br>s² = <span class="frac"><span class="top">423,75</span><span class="bot">19</span></span> = <b>22,30</b>.
+        <br>Standar Deviasi s = √<span class="rad">22,30</span> = <b>4,72 Juta Rp</b>.</li>
+      <li><b>Koefisien Variasi:</b> CV = (4,72 / 19,75) × 100% = <b>23,90%</b>.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- BAB 3 -->
+<section class="sheet" id="m3">
+  <div class="head"><div class="badge">3</div><div>
+    <h2>Bab 3 · Probabilitas Dasar &amp; Tabel Kontingensi</h2>
+    <div class="sub">PPT Sesi 4 · Aturan Gabungan, Irisan, &amp; Peluang Bersyarat</div>
+  </div></div>
+
+  <div class="sec">1. Hukum-Hukum Peluang yang Wajib Dihafal</div>
+  <ul class="tight">
+    <li>Rentang Peluang: 0 ≤ P(A) ≤ 1. Total seluruh semesta: P(S) = 1.</li>
+    <li><b>Komplemen (Bukan A):</b> P(A') = 1 - P(A).</li>
+    <li><b>Aturan Penjumlahan (OR / Gabungan):</b>
+      P(A ∪ B) = P(A) + P(B) - P(A ∩ B)
+      <i>(Jika dua kejadian Saling Lepas / Mutually Exclusive, maka P(A ∩ B) = 0).</i>
+    </li>
+    <li><b>Peluang Bersyarat (Peluang A jika diketahui B sudah terjadi):</b>
+      P(A|B) = <span class="frac"><span class="top">P(A ∩ B)</span><span class="bot">P(B)</span></span>
+      <b>Rahasia Logika:</b> Ingat bahwa huruf di belakang garis tegak (B) adalah <b>ruang sampel baru</b>. Maka pembagi di penyebut WAJIB total dari si B!
+    </li>
+    <li><b>Uji Dua Kejadian Independen (Saling Bebas):</b>
+      Kejadian A dan B dikatakan independen jika peluang A sama sekali tidak terpengaruh oleh adanya B:
+      P(A|B) = P(A)    atau    P(A ∩ B) = P(A) × P(B)
+    </li>
+  </ul>
+
+  <div class="worked">
+    <h4>Contoh PPT Bedah 3: Tabel Kontingensi Pembelian Tiket Pesawat</h4>
+    <p><b>Data Slide PPT Sesi 4:</b> Survei 100 penumpang mengenai kelas penerbangan (Bisnis / Ekonomi) dan kepuasan pelayanan (Puas / Tidak Puas):</p>
+    <div class="tblwrap"><table>
+      <thead><tr><th>Kelas Tiket</th><th>Puas (S)</th><th>Tidak Puas (S')</th><th>Total Baris</th></tr></thead>
+      <tbody>
+        <tr><td><b>Bisnis (B)</b></td><td>35</td><td>5</td><td><b>40</b></td></tr>
+        <tr><td><b>Ekonomi (E)</b></td><td>40</td><td>20</td><td><b>60</b></td></tr>
+        <tr><td><b>Total Kolom</b></td><td><b>75</b></td><td><b>25</b></td><td><b>Grand Total = 100</b></td></tr>
+      </tbody>
+    </table></div>
+    <p><b>Pertanyaan &amp; Bedah Jawaban:</b></p>
+    <ul class="tight">
+      <li><b>Hitung P(B) (Peluang penumpang kelas Bisnis):</b> Ambil total Bisnis dibagi grand total → <span class="frac"><span class="top">40</span><span class="bot">100</span></span> = <b>0,40</b>.</li>
+      <li><b>Hitung P(S ∪ B) (Peluang Puas ATAU Bisnis):</b>
+        <br>P(S) + P(B) - P(S ∩ B) = <span class="frac"><span class="top">75</span><span class="bot">100</span></span> + <span class="frac"><span class="top">40</span><span class="bot">100</span></span> - <span class="frac"><span class="top">35</span><span class="bot">100</span></span> = <span class="frac"><span class="top">80</span><span class="bot">100</span></span> = <b>0,80</b>.</li>
+      <li><b>Hitung P(S|B) (Peluang Puas JIKA penumpang dari kelas Bisnis):</b>
+        <br>Fokus hanya pada baris Bisnis (total 40 orang). Yang puas ada 35.
+        <br>P(S|B) = <span class="frac"><span class="top">35</span><span class="bot">40</span></span> = <b>0,875 (87,5%)</b>.</li>
+      <li><b>Hitung P(S|E) (Peluang Puas JIKA penumpang dari kelas Ekonomi):</b>
+        <br>Fokus pada baris Ekonomi (total 60 orang). Yang puas ada 40.
+        <br>P(S|E) = <span class="frac"><span class="top">40</span><span class="bot">60</span></span> = <b>0,667 (66,7%)</b>.</li>
+      <li><b>Apakah Kepuasan Independen terhadap Kelas Tiket?</b>
+        <br>Karena P(S|B) = 0,875 ≠ P(S|E) = 0,667 (atau tidak sama dengan P(S) = 0,75), maka <b>TIDAK INDEPENDEN</b>. Ada keterikatan nyata: penumpang kelas bisnis jauh lebih puas.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- BAB 4 -->
+<section class="sheet" id="m4">
+  <div class="head"><div class="badge">4</div><div>
+    <h2>Bab 4 · Distribusi Probabilitas Diskrit</h2>
+    <div class="sub">PPT Sesi 5 &amp; 6 · Nilai Harapan E(X), Binomial, Poisson &amp; Hipergeometrik</div>
+  </div></div>
+
+  <div class="sec">1. Variabel Acak Diskrit Umum: Nilai Harapan &amp; Variansi</div>
+  <p>Jika diberikan tabel pasangan nilai x dan peluangnya P(X = x):</p>
+  <div class="formula-card">
+    <b>Nilai Harapan / Rata-rata Jangka Panjang:</b>
+    E(X) = μ = Σ [x · P(x)]
+    <b>Variansi:</b>
+    Var(X) = σ² = Σ [x² · P(x)] - [E(X)]²
+    <b>Standar Deviasi:</b> σ = √<span class="rad">Var(X)</span>
+  </div>
+
+  <div class="sec">2. Tabel Pemilihan 3 Distribusi Diskrit Khusus</div>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Nama Distribusi</th><th>Ciri Kalimat di Soal</th><th>Rumus Probabilitas P(X = x)</th><th>Mean (μ) &amp; Variansi (σ²)</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Binomial</b></td>
+        <td>• Ada n percobaan tetap.<br>• Hanya 2 hasil (sukses/gagal).<br>• Peluang sukses p tetap tiap percobaan.</td>
+        <td>P(X = x) = ₙCₓ · pˣ · (1-p)<sup>n-x</sup>
+          <i>dengan ₙCₓ = <span class="frac"><span class="top">n!</span><span class="bot">x!(n-x)!</span></span></i>
+        </td>
+        <td>μ = n · p<br>σ² = n · p · (1-p)</td>
+      </tr>
+      <tr>
+        <td><b>Poisson</b></td>
+        <td>• Menghitung kejadian dalam rentang waktu/luas (misal "rata-rata kedatangan λ per jam").<br>• Nilai n sangat besar tapi p kecil.</td>
+        <td>P(X = x) = <span class="frac"><span class="top">e<sup>-λ</sup> · λˣ</span><span class="bot">x!</span></span>
+          <i>dengan e ≈ 2,71828</i>
+        </td>
+        <td>μ = λ<br>σ² = λ<br>σ = √<span class="rad">λ</span></td>
+      </tr>
+      <tr>
+        <td><b>Hypergeometric</b></td>
+        <td>• Sampel diambil sebanyak n dari total populasi N.<br>• <b>TANPA PENGEMBALIAN (Without Replacement)</b>.</td>
+        <td>P(X = x) = <span class="frac"><span class="top"><sub>A</sub>Cₓ · <sub>N-A</sub>C<sub>n-x</sub></span><span class="bot"><sub>N</sub>Cₙ</span></span>
+          <i>A = jumlah sukses di populasi.</i>
+        </td>
+        <td>μ = n · (<span class="frac"><span class="top">A</span><span class="bot">N</span></span>)</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <div class="worked">
+    <h4>Contoh PPT Bedah 4: Menghitung Peluang Binomial &amp; Poisson</h4>
+    <p><b>Kasus A (Binomial):</b> Sebuah pabrik memproduksi microchip dengan tingkat cacat 5% (p = 0,05). Diambil 6 chip secara acak (n = 6). Berapa peluang menemukan tepat 1 chip yang cacat?</p>
+    <ul class="tight">
+      <li>₆C₁ = <span class="frac"><span class="top">6!</span><span class="bot">1! · 5!</span></span> = 6</li>
+      <li>P(X = 1) = 6 × (0,05)¹ × (0,95)<sup>6 - 1</sup> = 6 × 0,05 × (0,95)⁵ = 6 × 0,05 × 0,77378 = <b>0,2321 (23,21%)</b>.</li>
+    </ul>
+    <p><b>Kasus B (Poisson):</b> Rata-rata panggilan masuk ke call center adalah 3 panggilan per menit (λ = 3). Berapa peluang dalam 1 menit ke depan masuk tepat 2 panggilan?</p>
+    <ul class="tight">
+      <li>P(X = 2) = <span class="frac"><span class="top">e<sup>-3</sup> · 3²</span><span class="bot">2!</span></span> = <span class="frac"><span class="top">0,049787 × 9</span><span class="bot">2</span></span> = <span class="frac"><span class="top">0,44808</span><span class="bot">2</span></span> = <b>0,2240 (22,40%)</b>.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- BAB 5 -->
+<section class="sheet" id="m5">
+  <div class="head"><div class="badge">5</div><div>
+    <h2>Bab 5 · Distribusi Normal Kontinu &amp; Nilai Z</h2>
+    <div class="sub">PPT Sesi 7 · Standarisasi &amp; Membaca Luas Kurva Tabel Z</div>
+  </div></div>
+
+  <div class="sec">1. Rumus Inti Z-Score</div>
+  <div class="formula-card">
+    <b>A. Standarisasi dari Nilai Asli X ke Nilai Standar Z:</b>
+    Z = <span class="frac"><span class="top">X - μ</span><span class="bot">σ</span></span>
+    <b>B. Konversi Balik dari Nilai Z ke Nilai Asli X:</b>
+    X = μ + Z · σ
+    <i>Arti Angka Z: Menunjukkan berapa jarak standar deviasi posisi nilai X terhadap titik tengah rata-rata μ. Z positif berarti di atas rata-rata, Z negatif di bawah rata-rata.</i>
+  </div>
+
+  <div class="sec">2. Cara Membaca Luas Area Tabel Z Standar (Cum. Left Tail)</div>
+  <ul class="tight">
+    <li><b>Peluang Kurang Dari P(X < a) atau P(Z < z₁):</b>
+      <br>Langsung baca tabel Z pada perpotongan baris dan kolom yang cocok. Nilai di tabel itu sudah langsung jawabannya!
+    </li>
+    <li><b>Peluang Lebih Dari P(X > a) atau P(Z > z₁):</b>
+      <br>Ingat total seluruh luas kurva adalah 1. Maka:
+      P(Z > z₁) = 1 - P(Z < z₁)
+    </li>
+    <li><b>Peluang Di Antara Dua Nilai P(a < X < b):</b>
+      <br>Hitung Z untuk batas atas (z₂) dan Z batas bawah (z₁), lalu kurangkan luas kirinya:
+      P(z₁ < Z < z₂) = P(Z < z₂) - P(Z < z₁)
+    </li>
+  </ul>
+
+  <div class="worked">
+    <h4>Contoh PPT Bedah 5: Menghitung Peluang Nilai Mahasiswa</h4>
+    <p><b>Soal PPT:</b> Nilai ujian Basic Statistics berdistribusi normal dengan rata-rata μ = 70 dan standar deviasi σ = 10.</p>
+    <ul class="tight">
+      <li><b>1. Berapa persen mahasiswa bernilai di bawah 60?</b>
+        <br>Z = <span class="frac"><span class="top">60 - 70</span><span class="bot">10</span></span> = <span class="frac"><span class="top">-10</span><span class="bot">10</span></span> = -1,00.
+        <br>Buka Tabel Z baris -1,0 kolom 0,00 → Angka tabel: 0,1587.
+        <br>Maka peluangnya = <b>0,1587 (15,87%)</b>.
+      </li>
+      <li><b>2. Berapa persen mahasiswa bernilai di atas 85?</b>
+        <br>Z = <span class="frac"><span class="top">85 - 70</span><span class="bot">10</span></span> = <span class="frac"><span class="top">15</span><span class="bot">10</span></span> = +1,50.
+        <br>Buka Tabel Z baris +1,5 kolom 0,00 → Luas kiri tabel: 0,9332.
+        <br>Peluang di atas 85 = 1 - 0,9332 = <b>0,0668 (6,68%)</b>.
+      </li>
+      <li><b>3. Berapa batas nilai minimum agar masuk ke 5% mahasiswa terbaik (Top 5%)?</b>
+        <br>Top 5% di kanan artinya ada 95% (luas 0,9500) mahasiswa di sebelah kirinya!
+        <br>Cari angka 0,9500 di badan tabel Z → Berada di antara Z = 1,64 (0,9495) dan Z = 1,65 (0,9505), kita ambil Z = 1,645.
+        <br>Gunakan rumus konversi balik:
+        <br>X = μ + Z · σ = 70 + (1,645 × 10) = 70 + 16,45 = <b>86,45</b>.
+        <br><i>Jadi nilai minimal untuk masuk 5% teratas adalah <b>86,45</b>.</i>
+      </li>
+    </ul>
+  </div>
+</section>
+</main>
+
+<aside class="rail right" id="railRight">
+  <div class="panel info">
+    <h4>Info Modul</h4>
+    <div class="kv"><span>Matkul</span><b>Basic Statistics</b></div>
+    <div class="kv"><span>Kode</span><b>STAT6190031</b></div>
+    <div class="kv"><span>Sifat</span><b>Open Book (1 Lbr A4)</b></div>
+    <div class="kv"><span>Sumber</span><b>8 Slide PPT LMS</b></div>
+    <div class="kv"><span>Dosen</span><b>Dr. Dani Suandi</b></div>
+  </div>
+  <div class="panel">
+    <h4>Kamus Cepat Simbol</h4>
+    <div class="fb-block" style="font-size:13px;font-family:inherit">
+      <b>μ</b> = Mean populasi<br>
+      <b>x̄</b> = Mean sampel<br>
+      <b>σ²</b> = Variansi populasi<br>
+      <b>s²</b> = Variansi sampel (n-1)<br>
+      <b>E(X)</b> = Nilai harapan diskrit<br>
+      <b>λ</b> = Rata-rata Poisson
+    </div>
+  </div>
+  <div class="panel">
+    <h4>Aturan Skala</h4>
+    <div class="fb-block" style="font-size:12.5px;font-family:inherit">
+      • <b>Nominal:</b> Nama/Kategori<br>
+      • <b>Ordinal:</b> Ada Tingkatan<br>
+      • <b>Interval:</b> Nol Semu<br>
+      • <b>Rasio:</b> Nol Mutlak (Habis)
+    </div>
+  </div>
+</aside>
+
+</div>
+<script>
+
+/* ponytail: drawer + scrollspy + progress aja. Engine drill tetap di file terpisah. */
+(function(){
+  var L = document.getElementById('railLeft');
+  var R = document.getElementById('railRight');
+  var tl = document.getElementById('tLeft');
+  var tr = document.getElementById('tRight');
+  if (tl && L) tl.addEventListener('click', function(){ L.classList.toggle('open'); if (R) R.classList.remove('open'); });
+  if (tr && R) tr.addEventListener('click', function(){ R.classList.toggle('open'); if (L) L.classList.remove('open'); });
+  if (L) L.addEventListener('click', function(e){ if (e.target.tagName === 'A') L.classList.remove('open'); });
+
+  var items = [].slice.call(document.querySelectorAll('#road li'));
+  var sheets = [].slice.call(document.querySelectorAll('main .sheet'));
+  function paint(){
+    var done = items.filter(function(li){ return li.classList.contains('done'); }).length;
+    var pct = items.length ? Math.round(done / items.length * 100) : 0;
+    var p = document.getElementById('pct'), f = document.getElementById('pfill'), c = document.getElementById('cnt');
+    if (p) p.textContent = pct + '%';
+    if (f) f.style.width = pct + '%';
+    if (c) c.textContent = done + ' / ' + items.length;
+  }
+  paint();
+
+  if ('IntersectionObserver' in window && sheets.length) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        var id = en.target.id;
+        items.forEach(function(li){
+          var a = li.querySelector('a');
+          li.classList.toggle('now', !!a && a.getAttribute('href') === '#' + id && !li.classList.contains('done'));
+        });
+      });
+    }, { rootMargin: '-40% 0px -50% 0px' });
+    sheets.forEach(function(s){ io.observe(s); });
+  }
+})();
+
+</script>
+<script>
+
+</script>
+</body>
+</html>

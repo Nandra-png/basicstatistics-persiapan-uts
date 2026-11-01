@@ -1,0 +1,787 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Breakdown 5 Soal UTS · Basic Statistics</title>
+<style>
+
+/* ============================================================
+   PAPER SHEET LAYOUT — template default class-with-hermes
+   3 kolom: roadmap (kiri) | kertas (tengah) | info (kanan)
+   Ganti isi <main>, jangan ganti token warna kecuali diminta.
+   ============================================================ */
+:root{
+  --ink:#1c2430;
+  --ink-soft:#4a5568;
+  --red:#c0392b;
+  --blue:#1f5fa8;
+  --paper:#fdfaf2;
+  --rule:rgba(80,120,175,.14);
+  --margin-line:rgba(215,65,65,.55);
+  --line:34px;
+  --edge:#cac3ad;
+  --desk:#e5e1d4;
+  --ok:#1e7a3c;
+  --sticky-yellow:#fff9b0;
+  --sticky-yellow-edge:#e9de89;
+  --sticky-tape:rgba(255,255,255,.68);
+  --sticky-tape-border:rgba(210,200,165,.45);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--desk);
+  background-image:radial-gradient(circle at 20% 0%,#f0ece0 0%,#d8d3c2 70%);
+  color:var(--ink);
+  font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  padding:22px 14px 90px;
+}
+
+/* ---------- 3 KOLOM ---------- */
+.wrap{
+  max-width:1500px;margin:0 auto;
+  display:grid;
+  grid-template-columns:246px minmax(0,920px) 296px;
+  gap:24px;
+  align-items:start;
+  justify-content:center;
+}
+.rail{
+  position:sticky;top:16px;
+  max-height:calc(100vh - 32px);
+  overflow-y:auto;overflow-x:hidden;
+  padding:12px 8px 30px;
+}
+.rail::-webkit-scrollbar{width:5px}
+.rail::-webkit-scrollbar-thumb{background:#c9c2ad;border-radius:3px}
+
+/* kartu panel sticky note (kiri & kanan) */
+.panel{
+  position:relative;
+  background:linear-gradient(175deg, #fffbc7 0%, var(--sticky-yellow) 40%, #fef39c 100%);
+  border:1px solid var(--sticky-yellow-edge);
+  border-radius:2px 3px 6px 3px;
+  box-shadow:
+    0 2px 4px rgba(60,50,20,.08),
+    0 8px 18px rgba(60,50,20,.14),
+    inset 0 1px 0 rgba(255,255,255,.8);
+  padding:20px 16px 16px;
+  margin-bottom:22px;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+/* Washi tape / selotip */
+.panel::before{
+  content:"";
+  position:absolute;
+  top:-9px;left:50%;
+  transform:translateX(-50%);
+  width:64px;height:18px;
+  background:var(--sticky-tape);
+  border:1px dashed var(--sticky-tape-border);
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
+  backdrop-filter:blur(1px);
+  opacity:.9;
+  z-index:2;
+}
+/* Efek sudut lengkung kanan bawah */
+.panel::after{
+  content:"";
+  position:absolute;
+  right:0;bottom:0;
+  width:0;height:0;
+  border-style:solid;
+  border-width:0 0 10px 10px;
+  border-color:transparent transparent rgba(60,50,20,.15) transparent;
+}
+.panel:hover{
+  box-shadow:
+    0 3px 6px rgba(60,50,20,.1),
+    0 12px 24px rgba(60,50,20,.18);
+}
+.rail.left .panel:nth-child(1){transform:rotate(-0.8deg)}
+.rail.left .panel:nth-child(2){transform:rotate(0.6deg)}
+.rail.left .panel:nth-child(3){transform:rotate(-0.5deg)}
+.rail.right .panel:nth-child(1){transform:rotate(0.9deg)}
+.rail.right .panel:nth-child(2){transform:rotate(-0.7deg)}
+.rail.right .panel:nth-child(3){transform:rotate(0.5deg)}
+
+.panel h4{
+  margin:0 0 10px;
+  font-size:11.5px;
+  font-weight:900;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:#61531e;
+  border-bottom:1.5px dashed rgba(150,130,50,.3);
+  padding-bottom:5px;
+}
+
+/* ---------- ROADMAP (KIRI) ---------- */
+.total{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px}
+.total b{font-size:22px;font-weight:800;letter-spacing:-.02em;color:#2c2206}
+.total span{font-size:12px;color:#61531e;font-weight:700}
+.pbar{height:7px;border-radius:999px;background:#e5dc9b;overflow:hidden;margin-bottom:4px}
+.pbar i{display:block;height:100%;width:0;background:var(--red);border-radius:999px;transition:width .35s}
+
+.road{list-style:none;margin:12px 0 0;padding:0;position:relative}
+.road::before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:1.5px;background:#d8cc8a}
+.road li{position:relative;padding:0 0 0 28px;margin:0 0 4px}
+.road a{
+  display:block;text-decoration:none;color:#2b2308;
+  font-size:13px;font-weight:700;line-height:1.35;
+  padding:6px 8px;border-radius:5px;transition:background .15s;
+}
+.road a:hover{background:rgba(255,255,255,.6)}
+.road a small{display:block;font-size:11px;color:#61531e;font-weight:500;margin-top:2px}
+.road .dot{
+  position:absolute;left:4px;top:11px;width:11px;height:11px;border-radius:50%;
+  background:#fff;border:2px solid #b8ab6a;
+}
+.road li.now .dot{border-color:var(--red);background:var(--red);box-shadow:0 0 0 3px rgba(192,57,43,.2)}
+.road li.now a{background:rgba(255,255,255,.8);color:var(--red);box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.road li.done .dot{border-color:var(--ok);background:var(--ok)}
+.road li.done a{color:#5c5438}
+.road li.done a::after{content:" ✓";color:var(--ok);font-weight:800}
+.road li.lock a{color:#8c8266;cursor:not-allowed}
+
+/* ---------- KERTAS (TENGAH) ---------- */
+main{min-width:0}
+.sheet{
+  position:relative;
+  background:var(--paper);
+  background-image:
+    linear-gradient(to right,transparent 0 84px,var(--margin-line) 84px 85.5px,transparent 85.5px),
+    repeating-linear-gradient(to bottom,transparent 0 33px,var(--rule) 33px 34px);
+  background-position:0 0,0 38px;
+  border-radius:4px;
+  border:1px solid #dcd5bf;
+  box-shadow:0 2px 0 #cfc8b4,0 10px 24px rgba(60,50,30,.15);
+  padding:32px 42px 48px 110px;
+  font-size:16px;line-height:1.75;
+  margin:0 0 26px;
+  scroll-margin-top:16px;
+}
+.sheet::before,.sheet::after{
+  content:"";position:absolute;left:28px;width:22px;height:22px;border-radius:50%;
+  background:var(--desk);box-shadow:inset 0 2px 4px rgba(0,0,0,.24),0 0 0 1px #d3ccb8;
+}
+.sheet::before{top:68px}
+.sheet::after{bottom:68px}
+
+h1,h2,h3{line-height:1.3;margin:0;color:var(--ink)}
+.head{display:flex;align-items:flex-start;gap:16px;margin-bottom:12px}
+.badge{
+  flex:0 0 auto;width:56px;height:56px;border-radius:50%;
+  display:grid;place-items:center;background:#fff;border:2.5px solid var(--red);
+  color:var(--red);font-weight:800;font-size:26px;
+  box-shadow:2px 2px 0 rgba(192,57,43,.18);
+}
+.head h2{font-size:23px;font-weight:800;letter-spacing:-.01em}
+.head .sub{font-size:13.5px;color:var(--ink-soft);font-weight:500;margin-top:4px}
+.pts{
+  display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.05em;
+  text-transform:uppercase;color:#7a5b13;background:#fdf3d0;
+  border:1px solid #e6d69a;border-radius:999px;padding:2px 9px;
+  margin-left:6px;vertical-align:2px;
+}
+.sec{
+  font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--blue);margin:18px 0 6px;display:flex;align-items:center;gap:8px;
+}
+.sec::after{content:"";flex:1;height:1px;background:#d8e2ee}
+
+p{margin:6px 0;background:rgba(253,250,242,.85)}
+.step{display:flex;gap:12px;margin:8px 0}
+.step .n{
+  flex:0 0 auto;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;
+  background:var(--red);color:#fff;font-size:12.5px;font-weight:800;margin-top:3px;
+}
+.step .body{flex:1 1 auto;min-width:0;background:rgba(253,250,242,.85)}
+.note{
+  color:var(--red);font-size:14.5px;line-height:1.6;
+  margin:10px 0 10px 36px;padding:8px 14px;
+  background:#fff8f6;border-left:3px solid var(--red);border-radius:0 6px 6px 0;
+}
+.note b{text-decoration:underline;text-underline-offset:2px}
+.aside{
+  font-size:13.5px;color:var(--ink-soft);background:#f4f7fb;
+  border:1px solid #d5e1ee;border-radius:8px;padding:10px 14px;margin:12px 0;line-height:1.65;
+}
+.aside b{color:var(--ink)}
+.ans{
+  margin:12px 0 8px 36px;padding:9px 15px;
+  border:2px solid var(--red);border-radius:4px;background:#fff7f5;line-height:1.7;
+}
+.ans .lbl{
+  font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--red);display:block;margin-bottom:3px;
+}
+.box{display:inline-block;border:2.5px double var(--ink);border-radius:3px;padding:2px 12px;background:#fffdf5}
+.ind{margin-left:36px;background:rgba(253,250,242,.85)}
+.big{margin:6px 0 6px 36px;font-size:18px;background:rgba(253,250,242,.85);padding:2px 0}
+.tblwrap{overflow-x:auto;margin-left:36px}
+table{
+  border-collapse:collapse;margin:8px 0;
+  font-family:'Cambria Math',Cambria,'Segoe UI',serif;font-size:15.5px;line-height:1.5;background:#fff;
+}
+th,td{border:1.6px solid #2b3340;padding:3px 11px;text-align:center;white-space:nowrap;background:#fff}
+thead th{background:#eef2f7;font-weight:700;font-family:'Segoe UI',sans-serif;font-size:13.5px}
+td.T{color:var(--ok);font-weight:700}
+td.F{color:#b03030;font-weight:700}
+
+/* ---------- INFO (KANAN) ---------- */
+.info .kv{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;padding:5px 0;border-bottom:1px dashed rgba(160,140,60,.35)}
+.info .kv:last-child{border-bottom:none}
+.info .kv span{color:#61531e;font-weight:600}
+.info .kv b{font-weight:800;text-align:right;color:#2c2206}
+.formula{
+  font-family:'Cambria Math',Cambria,serif;font-size:14px;line-height:1.55;
+  padding:7px 9px;border-radius:4px;background:rgba(255,255,255,.62);margin-bottom:6px;
+  border-left:3px solid #b8ab6a;
+}
+.formula small{display:block;font-family:'Segoe UI',sans-serif;font-size:11px;color:#61531e;margin-top:2px}
+.lives{display:flex;gap:4px;font-size:16px;line-height:1}
+.voice{display:flex;align-items:center;gap:8px;margin-top:6px}
+.voice button{
+  width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;
+  background:var(--red);color:#fff;font-size:13px;
+}
+.voice .vbar{flex:1;height:5px;border-radius:999px;background:#e5dc9b;overflow:hidden}
+.voice .vbar i{display:block;height:100%;width:0;background:var(--red)}
+.voice .vtime{font-size:11px;color:#61531e;font-variant-numeric:tabular-nums}
+
+/* tombol drawer (HP) */
+.toggles{display:none;gap:8px;position:sticky;top:8px;z-index:60;margin-bottom:12px}
+.toggles button{
+  flex:1;padding:9px;border-radius:4px;border:1px solid var(--sticky-yellow-edge);
+  background:linear-gradient(175deg,#fffbc7,var(--sticky-yellow));font-weight:800;font-size:13px;color:#332906;cursor:pointer;
+  box-shadow:0 2px 6px rgba(0,0,0,.1);
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:1240px){
+  .wrap{grid-template-columns:220px minmax(0,1fr)}
+  .rail.right{display:none}
+  .toggles{display:flex}
+  .rail.right.open{
+    display:block;position:fixed;top:0;right:0;bottom:0;width:300px;max-height:none;
+    z-index:70;background:var(--desk);padding:14px;box-shadow:-8px 0 24px rgba(40,30,10,.25);overflow:auto;
+  }
+}
+@media (max-width:900px){
+  .wrap{grid-template-columns:minmax(0,1fr)}
+  .rail.left{
+    display:none;position:fixed;top:0;left:0;bottom:0;width:290px;max-height:none;
+    z-index:70;background:var(--desk);padding:14px;box-shadow:8px 0 24px rgba(40,30,10,.25);overflow:auto;
+  }
+  .rail.left.open{display:block}
+  .sheet{padding:22px 16px 26px 62px;font-size:15px;line-height:1.7;background-image:
+    linear-gradient(to right,transparent 0 42px,var(--margin-line) 42px 43.4px,transparent 43.4px),
+    repeating-linear-gradient(to bottom,transparent 0 33px,var(--rule) 33px 34px)}
+  .sheet::before,.sheet::after{left:14px;width:15px;height:15px}
+  .head{gap:10px}
+  .head h2{font-size:18px}
+  .badge{width:42px;height:42px;font-size:19px}
+  table{font-size:12.5px}
+  th,td{padding:2px 5px}
+  .tblwrap,.big,.ind,.note,.ans{margin-left:0}
+}
+@media print{
+  body{background:#fff;padding:0}
+  .rail,.toggles{display:none!important}
+  .wrap{display:block;max-width:none}
+  .sheet{box-shadow:none;border:none;border-radius:0;margin:0;page-break-after:always;max-width:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ---------- matematika ---------- */
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;
+      padding:0 3px;font-size:.95em;line-height:1.2}
+.frac .top{border-bottom:1.5px solid currentColor;padding:0 3px 1px}
+.frac .bot{padding:1px 3px 0}
+.binom{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;
+       font-size:.92em;line-height:1.15;padding:0 2px}
+.binom .over{border-top:1.5px solid currentColor;padding-top:1px}
+.rad{border-top:1.5px solid currentColor;padding:0 3px}
+sup,sub{font-size:.72em;line-height:0}
+.formula{font-size:15px;line-height:2.1;letter-spacing:.2px}
+.formula .frac{font-size:.9em}
+
+/* ---------- layout ---------- */
+.code{font-family:'Consolas',ui-monospace,monospace;font-size:13px;line-height:1.62;background:#fffdf5;
+      border:1.5px solid #ddd4bd;border-left:4px solid var(--blue);border-radius:6px;padding:9px 12px;
+      margin:8px 0 10px;overflow-x:auto;white-space:pre;color:#1e2530}
+.mono{font-family:'Consolas',ui-monospace,monospace;font-size:.93em;background:#f1ece0;border-radius:4px;padding:1px 5px;border:1px solid #e2dac6}
+ul.tight{margin:6px 0 6px 18px;padding:0}
+ul.tight li{margin:6px 0;font-size:14.5px;line-height:1.65}
+.fb-block{font-size:14.5px;background:#fffdf5;border:1.5px solid #ddd4bd;border-left:4px solid var(--red);
+          border-radius:6px;padding:9px 12px;margin:9px 0;line-height:1.95}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:650px){.grid2{grid-template-columns:1fr}}
+
+.nav-tabs{display:flex;gap:8px;margin-bottom:18px;border-bottom:2px solid var(--edge);padding-bottom:10px;overflow-x:auto}
+.nav-tab{padding:8px 14px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;
+         color:var(--ink);background:#f2ede2;border:1.5px solid var(--edge);white-space:nowrap}
+.nav-tab.active{background:var(--red);color:#fff;border-color:var(--red)}
+.nav-tab:hover:not(.active){background:#e8e0d0}
+
+/* ---------- PRAKTEK DULU ---------- */
+.praktek-card{background:#f4fbf0;border:2px solid #4a8c2a;border-radius:10px;padding:14px 18px;margin:16px 0}
+.praktek-card .ptag{display:inline-block;background:#4a8c2a;color:#fff;font-weight:800;font-size:11.5px;
+                    padding:3px 10px;border-radius:4px;margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em}
+.praktek-card h3{margin:4px 0 8px;font-size:17px;color:#2b5a12}
+
+/* ---------- FORMULA HERO ---------- */
+.formula-hero{background:#fffef8;border:2px solid #1f5f8b;border-radius:10px;padding:14px 18px;margin:14px 0}
+.formula-hero .fname{font-size:16px;font-weight:800;color:#1f5f8b;display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.formula-hero .alias{background:#e2effa;color:#104064;font-size:11.5px;padding:3px 10px;border-radius:14px;
+                     border:1px solid #b8d9f2;font-weight:800;letter-spacing:.03em}
+.formula-hero .kapan{font-size:13.5px;line-height:1.75;color:#333;margin:10px 0 0;padding:8px 0 0 12px;border-left:3px solid #b8d9f2}
+
+/* ---------- ANALOGI ---------- */
+.analogi{background:#fefbf2;border:1.5px dashed #c49742;border-left:5px solid #d48b14;border-radius:8px;padding:14px 16px;margin:14px 0}
+.analogi h4{margin:0 0 6px;color:#8f5600;font-size:15px;font-weight:800}
+.analogi p{margin:5px 0;font-size:14px;line-height:1.75}
+.analogi .kesimpulan{background:#fff;border:1px solid #ebd8b0;border-radius:6px;padding:9px 12px;margin-top:10px;
+                     font-size:13.5px;color:#613e05;font-weight:700;line-height:1.65}
+
+/* ---------- lain ---------- */
+.trap-card{background:#fff5f3;border:1.5px solid #f1cfc8;border-left:4px solid var(--red);border-radius:8px;padding:12px 16px;margin:10px 0}
+.trap-card b{color:var(--red);font-size:14.5px}
+.self-test{background:#f7f5ec;border:1.5px dashed #cfc6af;border-radius:8px;padding:14px;margin:16px 0}
+.reveal-btn{font:inherit;font-weight:700;font-size:13px;cursor:pointer;padding:6px 14px;border-radius:6px;
+            border:1.5px solid var(--ink);background:#fff;margin-top:8px}
+.reveal-content{margin-top:10px;padding-top:10px;border-top:1px dashed #dcd3be;display:none}
+.worked{background:#fdfcf7;border:1.5px solid #d9d1bc;border-left:4px solid var(--ok);border-radius:8px;padding:12px 16px;margin:12px 0}
+.worked h4{margin:0 0 8px;font-size:14px;color:var(--ok);font-weight:800;letter-spacing:.03em;text-transform:uppercase}
+
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.rumus-tbl{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0}
+.rumus-tbl th{background:#eef3f7;text-align:left;padding:8px 10px;border:1px solid #cdd8e0;font-size:12.5px}
+.rumus-tbl td{padding:8px 10px;border:1px solid #e0dccd;vertical-align:top;line-height:1.6}
+.rumus-tbl td:first-child{font-weight:800;color:#1f5f8b}
+
+</style>
+</head>
+<body>
+<div class="toggles">
+  <button id="tLeft" type="button">☰ Menu Nav</button>
+  <button id="tRight" type="button">📌 Catatan Sticky</button>
+</div>
+<div class="wrap">
+
+<aside class="rail left" id="railLeft">
+  <div class="panel">
+    <h4>Navigasi Soal UTS</h4>
+    <ul class="road" id="road">
+      <li class="now"><span class="dot"></span><a href="#u0">Pengantar<small>Petunjuk Belajar</small></a></li>
+      <li><span class="dot"></span><a href="#u1">Soal 1<small>Skala &amp; Tabel</small></a></li>
+      <li><span class="dot"></span><a href="#u2">Soal 2<small>Mean, Var, IQR</small></a></li>
+      <li><span class="dot"></span><a href="#u3">Soal 3<small>E(X) &amp; Binomial</small></a></li>
+      <li><span class="dot"></span><a href="#u4">Soal 4<small>Z-Score</small></a></li>
+      <li><span class="dot"></span><a href="#u5">Soal 5<small>Box Plot</small></a></li>
+    </ul>
+  </div>
+  <div class="panel">
+    <h4>Halaman Lain</h4>
+    <a href="materi.html" style="display:block;margin-bottom:6px;color:var(--blue);font-weight:700">📖 1. Materi Lengkap →</a>
+    <a href="kalkulator.html" style="display:block;color:var(--blue);font-weight:700">🖩 3. Kalkulator &amp; Latihan →</a>
+  </div>
+</aside>
+
+<main>
+<div class="nav-tabs"><a href="materi.html" class="nav-tab">📖 1. Materi</a><a href="rangkuman.html" class="nav-tab">🧠 2. Rangkuman PDF</a><a href="uts.html" class="nav-tab active">🎯 3. Breakdown UTS</a><a href="kalkulator.html" class="nav-tab">🖩 4. Kalkulator</a></div>
+
+<section class="sheet" id="u0">
+  <div class="kode">BREAKDOWN 5 NOMOR · CONTOH SOAL UTS</div>
+  <h1 style="font-size:25px;font-weight:800;margin-top:4px">Bedah Langkah Hitung 5 Soal UTS
+    <br><span style="font-size:16px;font-weight:600;color:var(--ink-soft)">Setiap Soal + Study Case Tambahan (Angka Beda, Konsep Sama)</span></h1>
+  <div class="note">
+    <b>Petunjuk belajar:</b> Pahami dulu setiap langkah di soal asli UTS. Lalu coba kerjakan <b>Study Case Baru</b> di bawah setiap soal — angka dan ceritanya beda, tapi rumusnya sama persis. Bandingkan langkah lu dengan kunci jawaban yang disediakan.
+  </div>
+</section>
+
+<!-- ============ SOAL 1 ============ -->
+<section class="sheet" id="u1">
+  <div class="head"><div class="badge">1</div><div>
+    <h2>Soal 1 · Data, Skala &amp; Tabel Kontingensi <span class="pts">20 poin</span></h2>
+    <div class="sub">Survei 60 mahasiswa Computer Science &amp; Information Systems tentang bekerja paruh waktu</div>
+  </div></div>
+
+  <div class="tblwrap"><table>
+    <thead><tr><th>Program Studi</th><th>Bekerja Paruh Waktu</th><th>Tidak Bekerja</th><th>Total Baris</th></tr></thead>
+    <tbody>
+      <tr><td><b>Computer Science</b></td><td>14</td><td>16</td><td><b>30</b></td></tr>
+      <tr><td><b>Information Systems</b></td><td>9</td><td>21</td><td><b>30</b></td></tr>
+      <tr><td><b>Total Kolom</b></td><td><b>23</b></td><td><b>37</b></td><td><b>60</b></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="sec">Bedah Jawaban Lengkap</div>
+  <ul class="tight">
+    <li><b>a) Jenis &amp; skala variabel:</b>
+      <br>• <b>"Program Studi" (CS / IS):</b> Data <b>kategorikal</b>, skala <b>nominal</b>. Kenapa? Karena "CS" dan "IS" hanyalah nama dua jurusan — tidak bisa diurutkan (CS bukan "lebih tinggi" dari IS), tidak bisa dijumlahkan.
+      <br>• <b>"Status Bekerja Paruh Waktu" (Ya / Tidak):</b> Data <b>kategorikal</b>, skala <b>nominal</b>. Alasannya sama — cuma dua label tanpa urutan logis.
+    </li>
+    <li><b>b) P(bekerja paruh waktu):</b>
+      <br>Pertanyaan memilih acak satu dari SELURUH 60 mahasiswa. Total yang bekerja = 14 + 9 = 23.
+      <br>P(bekerja) = <span class="frac"><span class="top">23</span><span class="bot">60</span></span> = <b>0,3833 ≈ 38,33%</b>.
+    </li>
+    <li><b>c) Peluang bersyarat per jurusan:</b>
+      <br>P(bekerja | CS) = <span class="frac"><span class="top">14</span><span class="bot">30</span></span> = <b>0,4667 (46,67%)</b>. ← Pembaginya total CS = 30, bukan 60!
+      <br>P(bekerja | IS) = <span class="frac"><span class="top">9</span><span class="bot">30</span></span> = <b>0,3000 (30,00%)</b>.
+    </li>
+    <li><b>d) Apakah status bekerja independen terhadap program studi?</b>
+      <br>Cek: Kalau independen, P(bekerja | CS) HARUS sama dengan P(bekerja | IS) dan sama dengan P(bekerja).
+      <br>Kenyataannya: 0,4667 ≠ 0,3000. <b>Tidak independen</b> — proporsi bekerja CS jauh lebih tinggi daripada IS.
+    </li>
+    <li><b>e) Tabel distribusi frekuensi 5 kelas dari 40 nilai ujian:</b>
+      <br>Data: 52, 58, 61, 63, 64, 65, 67, 68, 68, 70, 71, 71, 72, 72, 73, 74, 74, 75, 75, 76, 77, 77, 78, 78, 79, 80, 80, 81, 82, 82, 83, 84, 85, 86, 87, 88, 89, 91, 94, 96.
+      <br>Range = 96 - 52 = 44. Lebar kelas w = 44 / 5 = 8,8 → bulatkan ke atas → <b>9</b>.
+      <br><b>Tabel:</b>
+    </li>
+  </ul>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Kelas</th><th>Frekuensi (f)</th><th>Frek. Relatif (f/n)</th><th>Frek. Kumulatif</th></tr></thead>
+    <tbody>
+      <tr><td>52 – 60</td><td>2</td><td>0,050</td><td>2</td></tr>
+      <tr><td>61 – 69</td><td>7</td><td>0,175</td><td>9</td></tr>
+      <tr><td>70 – 78</td><td>16</td><td>0,400</td><td>25</td></tr>
+      <tr><td>79 – 87</td><td>10</td><td>0,250</td><td>35</td></tr>
+      <tr><td>88 – 96</td><td>5</td><td>0,125</td><td>40</td></tr>
+      <tr><td><b>Total</b></td><td><b>40</b></td><td><b>1,000</b></td><td>-</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="tight">
+    <li><b>f) Proporsi nilai ≥ 80:</b> Kelas 79–87 punya frekuensi kumulatif sampai batas 78 = 25, maka yang ≥ 79 ada 40 − 25 = 15, tapi kita butuh ≥ 80: data asli dari 80 ke atas ada <b>15 mahasiswa</b> (hitung manual dari data), maka <span class="frac"><span class="top">15</span><span class="bot">40</span></span> = <b>0,375 (37,5%)</b>.</li>
+  </ul>
+
+  <div class="self-test">
+    <b>🆕 Study Case 1 — Ganti Angka &amp; Cerita:</b>
+    <p>Survei 80 mahasiswa di 2 kampus (Kampus A &amp; B) soal apakah mereka menggunakan transportasi umum:</p>
+    <div class="tblwrap"><table>
+      <thead><tr><th>Kampus</th><th>Pakai TransJakarta</th><th>Tidak Pakai</th></tr></thead>
+      <tbody>
+        <tr><td><b>Kampus A</b></td><td>20</td><td>30</td></tr>
+        <tr><td><b>Kampus B</b></td><td>18</td><td>12</td></tr>
+      </tbody>
+    </table></div>
+    <p><b>Soal:</b> (a) Skala variabel "Kampus" dan "Pakai TransJakarta"? (b) P(Pakai)? (c) P(Pakai | B)? (d) Independen?</p>
+    <button class="reveal-btn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Buka Kunci Jawaban</button>
+    <div class="reveal-content">
+      <p>Total: A = 50, B = 30, Grand = 80. Total pakai = 38.</p>
+      <ul class="tight">
+        <li>(a) Keduanya Nominal.</li>
+        <li>(b) P(Pakai) = 38 / 80 = <b>0,475</b>.</li>
+        <li>(c) P(Pakai | A) = 20/50 = 0,400. P(Pakai | B) = 18/30 = <b>0,600</b>.</li>
+        <li>(d) <b>Tidak Independen</b>. 0,400 ≠ 0,600. Kampus B proporsi pakai lebih tinggi.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOAL 2 ============ -->
+<section class="sheet" id="u2">
+  <div class="head"><div class="badge">2</div><div>
+    <h2>Soal 2 · Mean, Variansi, IQR &amp; CV <span class="pts">20 poin</span></h2>
+    <div class="sub">Waktu tunggu 15 pelanggan: 8, 10, 11, 12, 12, 13, 14, 15, 15, 16, 18, 20, 22, 24, 25</div>
+  </div></div>
+
+  <div class="sec">Langkah Hitung Rinci</div>
+  <ul class="tight">
+    <li><b>a) Mean (x̄):</b>
+      <br>Σ X = 8 + 10 + 11 + … + 25 = <b>235</b>.
+      <br>x̄ = <span class="frac"><span class="top">Σ X</span><span class="bot">n</span></span> = <span class="frac"><span class="top">235</span><span class="bot">15</span></span> = <b>15,67  menit</b>.
+    </li>
+    <li><b>b) Median:</b>
+      <br>Data sudah urut naik. n = 15 (ganjil). Posisi median = <span class="frac"><span class="top">15+1</span><span class="bot">2</span></span> = 8. Data ke-8 = <b>15 menit</b>.
+    </li>
+    <li><b>c) Modus:</b>
+      <br>Angka 12 muncul 2 kali, angka 15 juga 2 kali. <b>Bimodal (12 dan 15)</b>.
+    </li>
+    <li><b>d) Variansi Sampel (s²):</b>
+      <br>Σ X² = 8² + 10² + 11² + … + 25² = 64 + 100 + 121 + 144 + 144 + 169 + 196 + 225 + 225 + 256 + 324 + 400 + 484 + 576 + 625 = <b>4.053</b>.
+      <br>Rumus shortcut: s² = <span class="frac"><span class="top">Σ X² - <span class="frac"><span class="top">(Σ X)²</span><span class="bot">n</span></span></span><span class="bot">n - 1</span></span> = <span class="frac"><span class="top">4053 - <span class="frac"><span class="top">235²</span><span class="bot">15</span></span></span><span class="bot">14</span></span> = <span class="frac"><span class="top">4053 - <span class="frac"><span class="top">55225</span><span class="bot">15</span></span></span><span class="bot">14</span></span> = <span class="frac"><span class="top">4053 - 3681,67</span><span class="bot">14</span></span> = <span class="frac"><span class="top">371,33</span><span class="bot">14</span></span> = <b>26,52</b>.
+      <br>s = √<span class="rad">26,52</span> = <b>5,15  menit</b>.
+    </li>
+    <li><b>e) Kuartil (Metode Levine) &amp; IQR:</b>
+      <br>Posisi Q₁ = <span class="frac"><span class="top">n+1</span><span class="bot">4</span></span> = <span class="frac"><span class="top">16</span><span class="bot">4</span></span> = 4 → data ke-4 = <b>12</b>.
+      <br>Posisi Q₃ = <span class="frac"><span class="top">3(n+1)</span><span class="bot">4</span></span> = <span class="frac"><span class="top">48</span><span class="bot">4</span></span> = 12 → data ke-12 = <b>20</b>.
+      <br>IQR = Q₃ - Q₁ = 20 - 12 = <b>8  menit</b>.
+    </li>
+    <li><b>f) CV:</b>
+      <br>CV = <span class="frac"><span class="top">s</span><span class="bot">x̄</span></span> × 100% = <span class="frac"><span class="top">5,15</span><span class="bot">15,67</span></span> × 100% = <b>32,86%</b>. (Variabilitas sedang.)
+    </li>
+    <li><b>g) Deteksi Outlier:</b>
+      <br>Pagar bawah = Q₁ - 1,5 × IQR = 12 - 12 = <b>0</b>.
+      <br>Pagar atas = Q₃ + 1,5 × IQR = 20 + 12 = <b>32</b>.
+      <br>Data minimum 8 ≥ 0 dan data maksimum 25 ≤ 32, maka <b>tidak ada outlier</b>.
+    </li>
+    <li><b>h) Bentuk distribusi:</b>
+      <br>Mean 15,67 > Median 15,00. Artinya ekor data memanjang ke kanan → <b>menceng kanan (positif / right-skewed)</b>.
+    </li>
+  </ul>
+
+  <div class="self-test">
+    <b>🆕 Study Case 2 — Data Baru:</b>
+    <p>Skor kepuasan pelanggan 11 orang: <b>3, 4, 5, 5, 6, 7, 7, 7, 8, 9, 15</b>.</p>
+    <p><b>Soal:</b> (a) Mean, (b) Median, (c) Variansi sampel, (d) Q₁, Q₃, IQR, (e) Ada outlier?, (f) Menceng ke mana?</p>
+    <button class="reveal-btn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Buka Kunci Jawaban</button>
+    <div class="reveal-content">
+      <ul class="tight">
+        <li>(a) Σ X = 76, x̄ = 76 / 11 = <b>6,91</b>.</li>
+        <li>(b) n = 11 ganjil. Posisi (11+1)/2 = 6. Data ke-6 = <b>7</b>.</li>
+        <li>(c) Σ X² = 580. s² = (580 - 76²/11) / 10 = (580 - 525,09) / 10 = 54,91 / 10 = <b>5,49</b>. s = <b>2,34</b>.</li>
+        <li>(d) Q₁ posisi (11+1)/4 = 3 → data ke-3 = <b>5</b>. Q₃ posisi 3 × 12/4 = 9 → data ke-9 = <b>8</b>. IQR = 8 - 5 = <b>3</b>.</li>
+        <li>(e) Pagar bawah = 5 - 4,5 = 0,5; pagar atas = 8 + 4,5 = 12,5. Nilai <b>15</b> > 12,5, maka <b>15 adalah outlier</b>!</li>
+        <li>(f) Mean 6,91 < Median 7. Tapi ada outlier di kanan... Sebenarnya 6,91 < 7 menunjukkan distribusi yang kira-kira simetris, tapi outlier 15 di kanan menandakan ada ekor panjang kanan. Secara numeris strict: <b>menceng kiri sedikit</b> (mean < median), namun secara visual karena outlier di kanan, bentuknya <b>mendekati simetris dengan outlier kanan</b>. Di ujian, pakai acuan mean vs median: mean < median → <b>menceng kiri</b>.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOAL 3 ============ -->
+<section class="sheet" id="u3">
+  <div class="head"><div class="badge">3</div><div>
+    <h2>Soal 3 · Distribusi Probabilitas Diskrit <span class="pts">20 poin</span></h2>
+    <div class="sub">Jumlah barang rusak per hari (X)</div>
+  </div></div>
+
+  <div class="tblwrap"><table>
+    <thead><tr><th>X</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>Σ</th></tr></thead>
+    <tbody><tr><td><b>P(X = x)</b></td><td>0,10</td><td>0,25</td><td>0,35</td><td>0,20</td><td>0,10</td><td><b>1,00</b></td></tr></tbody>
+  </table></div>
+
+  <div class="sec">Bedah Jawaban Lengkap</div>
+  <ul class="tight">
+    <li><b>a) Apakah distribusi ini sah / valid?</b>
+      <br>Syarat: (1) Semua P(x) ≥ 0 ✓ (semuanya positif). (2) Σ P(x) = 0,10 + 0,25 + 0,35 + 0,20 + 0,10 = 1,00 ✓.
+      <br><b>Sah!</b>
+    </li>
+    <li><b>b) P(X ≥ 3):</b>
+      <br>X ≥ 3 artinya X = 3 atau X = 4 → P(3) + P(4) = 0,20 + 0,10 = <b>0,30</b>.
+      <br>P(X ≤ 1) = P(0) + P(1) = 0,10 + 0,25 = <b>0,35</b>.
+    </li>
+    <li><b>c) P(1 < X ≤ 3):</b>
+      <br>Perhatikan! Tanda "<" (bukan ≤) berarti 1 <b>tidak ikut</b>. Yang masuk: X = 2 dan X = 3.
+      <br>P(2) + P(3) = 0,35 + 0,20 = <b>0,55</b>.
+    </li>
+    <li><b>d) Expected Value E(X):</b>
+      <br>E(X) = Σ x · P(x) = (0)(0,10) + (1)(0,25) + (2)(0,35) + (3)(0,20) + (4)(0,10)
+      <br>= 0 + 0,25 + 0,70 + 0,60 + 0,40 = <b>1,95  unit/hari</b>.
+    </li>
+    <li><b>e) Variansi Var(X):</b>
+      <br>Σ x² P(x) = (0)(0,10) + (1)(0,25) + (4)(0,35) + (9)(0,20) + (16)(0,10) = 0 + 0,25 + 1,40 + 1,80 + 1,60 = <b>5,05</b>.
+      <br>Var(X) = 5,05 - (1,95)² = 5,05 - 3,8025 = <b>1,2475</b>.
+      <br>σ = √<span class="rad">1,2475</span> = <b>1,117  unit</b>.
+    </li>
+    <li><b>f) Jika biaya harian C = 10.000 + 25.000 × X:</b>
+      <br>E(C) = 10.000 + 25.000 × E(X) = 10.000 + 25.000 × 1,95 = 10.000 + 48.750 = <b>Rp 58.750</b>.
+    </li>
+  </ul>
+
+  <div class="self-test">
+    <b>🆕 Study Case 3 — Binomial:</b>
+    <p>Sebuah mesin produksi memiliki tingkat cacat 8% (p = 0,08). Diambil sampel acak n = 5 produk.</p>
+    <p><b>Soal:</b> (a) P(X = 0) (tidak ada yang cacat)? (b) P(X ≥ 2)? (c) E(X)?</p>
+    <button class="reveal-btn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Buka Kunci Jawaban</button>
+    <div class="reveal-content">
+      <ul class="tight">
+        <li>(a) P(X=0) = ₅C₀ × 0,08⁰ × 0,92⁵ = 1 × 1 × 0,6591 = <b>0,6591</b>.</li>
+        <li>(b) P(X ≥ 2) = 1 - P(0) - P(1) = 1 - 0,6591 - [₅C₁ × 0,08 × 0,92⁴] = 1 - 0,6591 - [5 × 0,08 × 0,7164] = 1 - 0,6591 - 0,2866 = <b>0,0543</b>.</li>
+        <li>(c) E(X) = np = 5 × 0,08 = <b>0,40</b> (rata-rata 0,4 produk cacat per 5 sampel).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOAL 4 ============ -->
+<section class="sheet" id="u4">
+  <div class="head"><div class="badge">4</div><div>
+    <h2>Soal 4 · Distribusi Normal &amp; Z-Score <span class="pts">20 poin</span></h2>
+    <div class="sub">Nilai ujian berdistribusi normal: μ = 72, σ = 8</div>
+  </div></div>
+
+  <div class="sec">Bedah Jawaban Lengkap</div>
+  <ul class="tight">
+    <li><b>a) P(X < 60):</b>
+      <br>Standarisasi: Z = <span class="frac"><span class="top">60 - 72</span><span class="bot">8</span></span> = <span class="frac"><span class="top">-12</span><span class="bot">8</span></span> = <b>-1,50</b>.
+      <br>Buka Tabel Z, baris -1,5 kolom 0,00 → P(Z < -1,50) = <b>0,0668</b>.
+      <br>Artinya <b>6,68%</b> mahasiswa nilainya di bawah 60.
+    </li>
+    <li><b>b) P(60 < X < 80):</b>
+      <br>Z<sub>60</sub> = -1,50 → luas kiri = 0,0668.
+      <br>Z<sub>80</sub> = <span class="frac"><span class="top">80 - 72</span><span class="bot">8</span></span> = <span class="frac"><span class="top">8</span><span class="bot">8</span></span> = +1,00 → luas kiri = 0,8413.
+      <br>P(60 < X < 80) = 0,8413 - 0,0668 = <b>0,7745 (77,45%)</b>.
+    </li>
+    <li><b>c) P(X > 85):</b>
+      <br>Z = <span class="frac"><span class="top">85 - 72</span><span class="bot">8</span></span> = <span class="frac"><span class="top">13</span><span class="bot">8</span></span> = +1,63 → luas kiri = 0,9484.
+      <br>P(X > 85) = 1 - 0,9484 = <b>0,0516 (5,16%)</b>.
+    </li>
+    <li><b>d) Berapa batas nilai 10% mahasiswa teratas?</b>
+      <br>10% teratas artinya 90% ada di bawahnya → cari luas kiri = 0,9000.
+      <br>Di tabel Z: Z ≈ <b>1,28</b> (baris 1,2 kolom 0,08 → 0,8997, paling dekat 0,9000).
+      <br>Konversi balik: X = μ + Z × σ = 72 + 1,28 × 8 = 72 + 10,24 = <b>82,24</b>.
+    </li>
+    <li><b>e) P(X < 58) (Tidak lulus):</b>
+      <br>Z = <span class="frac"><span class="top">58 - 72</span><span class="bot">8</span></span> = <span class="frac"><span class="top">-14</span><span class="bot">8</span></span> = -1,75 → luas kiri = <b>0,0401 (4,01%)</b>.
+    </li>
+  </ul>
+
+  <div class="trap-card">
+    <b>⚠️ Jebakan "10% teratas":</b> Banyak mahasiswa langsung mencari angka 0,10 di tabel Z. Padahal tabel memberikan <b>luas ke kiri</b>! Jadi yang harus dicari di tabel adalah 1 - 0,10 = 0,9000 (luas KIRI dari batas teratas).
+  </div>
+
+  <div class="self-test">
+    <b>🆕 Study Case 4 — Data Baru:</b>
+    <p>Berat kemasan produk berdistribusi normal dengan μ = 500g dan σ = 12g.</p>
+    <p><b>Soal:</b> (a) P(X < 480)? (b) P(490 < X < 510)? (c) Berapa batas berat agar masuk 5% terberat?</p>
+    <button class="reveal-btn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Buka Kunci Jawaban</button>
+    <div class="reveal-content">
+      <ul class="tight">
+        <li>(a) Z = (480-500)/12 = -1,67 → tabel = <b>0,0475 (4,75%)</b>.</li>
+        <li>(b) Z<sub>490</sub> = -0,83 → 0,2033; Z<sub>510</sub> = +0,83 → 0,7967. Jawaban = 0,7967 - 0,2033 = <b>0,5934 (59,34%)</b>.</li>
+        <li>(c) 5% terberat → luas kiri = 0,9500 → Z ≈ 1,645. X = 500 + 1,645 × 12 = 500 + 19,74 = <b>519,74g</b>.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOAL 5 ============ -->
+<section class="sheet" id="u5">
+  <div class="head"><div class="badge">5</div><div>
+    <h2>Soal 5 · Box Plot &amp; Interpretasi <span class="pts">20 poin</span></h2>
+    <div class="sub">Five-Number Summary dua kelas</div>
+  </div></div>
+
+  <div class="tblwrap"><table>
+    <thead><tr><th>Statistik</th><th>Kelas A</th><th>Kelas B</th></tr></thead>
+    <tbody>
+      <tr><td>Minimum</td><td>45</td><td>40</td></tr>
+      <tr><td>Q₁</td><td>62</td><td>55</td></tr>
+      <tr><td>Median (Q₂)</td><td>74</td><td>68</td></tr>
+      <tr><td>Q₃</td><td>82</td><td>85</td></tr>
+      <tr><td>Maksimum</td><td>95</td><td>98</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="sec">Bedah Jawaban Lengkap</div>
+  <ul class="tight">
+    <li><b>a) IQR setiap kelas:</b>
+      <br>IQR<sub>A</sub> = Q₃ - Q₁ = 82 - 62 = <b>20</b>; IQR<sub>B</sub> = 85 - 55 = <b>30</b>.
+    </li>
+    <li><b>b) Pagar outlier Kelas B:</b>
+      <br>Lower Fence = Q₁ - 1,5 × IQR = 55 - 1,5(30) = 55 - 45 = <b>10</b>.
+      <br>Upper Fence = Q₃ + 1,5 × IQR = 85 + 45 = <b>130</b>.
+      <br>Data B: Min 40 ≥ 10 dan Maks 98 ≤ 130, jadi <b>tidak ada outlier</b>.
+    </li>
+    <li><b>c) Kelas mana yang nilainya lebih tinggi?</b>
+      <br>Bandingkan median: Kelas A median 74 > Kelas B median 68. <b>Kelas A lebih tinggi</b>.
+    </li>
+    <li><b>d) Kelas mana yang lebih menyebar?</b>
+      <br>Bandingkan IQR: Kelas B IQR 30 > Kelas A IQR 20. <b>Kelas B lebih menyebar</b>.
+    </li>
+    <li><b>e) Sketsa Box Plot Kelas B:</b>
+      <br>Kotak dari 55 s/d 85, garis median vertikal di 68, kumis kiri ke 40, kumis kanan ke 98. Tidak ada titik outlier.
+    </li>
+    <li><b>f) Bentuk distribusi Kelas B:</b>
+      <br>Jarak median ke Q₁: 68 - 55 = 13.
+      <br>Jarak median ke Q₃: 85 - 68 = 17.
+      <br>Median lebih dekat ke Q₁ (13 < 17), artinya ada ekor yang lebih panjang ke arah kanan → <b>menceng kanan (positif)</b>.
+    </li>
+  </ul>
+
+  <div class="self-test">
+    <b>🆕 Study Case 5 — Data Baru:</b>
+    <p>Data gaji bulanan (juta Rp) 9 karyawan: <b>3, 4, 5, 5, 6, 7, 8, 10, 22</b>.</p>
+    <p><b>Soal:</b> (a) Q₁, Q₃, IQR? (b) Pagar outlier? (c) Ada outlier? (d) Bentuk distribusi?</p>
+    <button class="reveal-btn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Buka Kunci Jawaban</button>
+    <div class="reveal-content">
+      <ul class="tight">
+        <li>(a) n = 9. Posisi Q₁ = (9+1)/4 = 2,5 → rata-rata data ke-2 dan ke-3 = (4+5)/2 = <b>4,5</b>. Q₃ posisi 7,5 → (8+10)/2 = <b>9</b>. IQR = 9 - 4,5 = <b>4,5</b>.</li>
+        <li>(b) Lower = 4,5 - 6,75 = -2,25. Upper = 9 + 6,75 = <b>15,75</b>.</li>
+        <li>(c) 22 > 15,75 → <b>22 adalah outlier!</b></li>
+        <li>(d) Mean = 70/9 = 7,78, Median = 6. Mean > Median → <b>menceng kanan</b> (diperkuat oleh adanya outlier 22 di kanan).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<aside class="rail right" id="railRight">
+  <div class="panel info">
+    <h4>Info UTS</h4>
+    <div class="kv"><span>Jumlah Soal</span><b>5 Nomor</b></div>
+    <div class="kv"><span>Total Poin</span><b>100 Poin</b></div>
+    <div class="kv"><span>Sifat</span><b>Open Book (1 Lbr A4)</b></div>
+    <div class="kv"><span>Kalkulator</span><b>Boleh (Scientific)</b></div>
+  </div>
+  <div class="panel">
+    <h4>Rumus Cepat</h4>
+    <div class="fb-block">P(A|B) = P(A∩B) / P(B)</div>
+    <div class="fb-block">s² = [ΣX² − (ΣX)²/n] / (n−1)</div>
+    <div class="fb-block">Z = (X − μ) / σ</div>
+    <div class="fb-block">IQR = Q3 − Q1</div>
+    <div class="fb-block">E(X) = Σ x·P(x)</div>
+    <div class="fb-block">Var = Σx²P(x) − μ²</div>
+  </div>
+  <div class="panel">
+    <h4>Kamus Kata Soal</h4>
+    <div class="fb-block" style="font-size:12.5px;font-family:inherit">
+      exactly = P(X = x)<br>
+      at least = P(X ≥ x)<br>
+      at most = P(X ≤ x)<br>
+      more than = P(X > x)<br>
+      fewer than = P(X < x)
+    </div>
+  </div>
+</aside>
+
+</div>
+<script>
+
+/* ponytail: drawer + scrollspy + progress aja. Engine drill tetap di file terpisah. */
+(function(){
+  var L = document.getElementById('railLeft');
+  var R = document.getElementById('railRight');
+  var tl = document.getElementById('tLeft');
+  var tr = document.getElementById('tRight');
+  if (tl && L) tl.addEventListener('click', function(){ L.classList.toggle('open'); if (R) R.classList.remove('open'); });
+  if (tr && R) tr.addEventListener('click', function(){ R.classList.toggle('open'); if (L) L.classList.remove('open'); });
+  if (L) L.addEventListener('click', function(e){ if (e.target.tagName === 'A') L.classList.remove('open'); });
+
+  var items = [].slice.call(document.querySelectorAll('#road li'));
+  var sheets = [].slice.call(document.querySelectorAll('main .sheet'));
+  function paint(){
+    var done = items.filter(function(li){ return li.classList.contains('done'); }).length;
+    var pct = items.length ? Math.round(done / items.length * 100) : 0;
+    var p = document.getElementById('pct'), f = document.getElementById('pfill'), c = document.getElementById('cnt');
+    if (p) p.textContent = pct + '%';
+    if (f) f.style.width = pct + '%';
+    if (c) c.textContent = done + ' / ' + items.length;
+  }
+  paint();
+
+  if ('IntersectionObserver' in window && sheets.length) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        var id = en.target.id;
+        items.forEach(function(li){
+          var a = li.querySelector('a');
+          li.classList.toggle('now', !!a && a.getAttribute('href') === '#' + id && !li.classList.contains('done'));
+        });
+      });
+    }, { rootMargin: '-40% 0px -50% 0px' });
+    sheets.forEach(function(s){ io.observe(s); });
+  }
+})();
+
+</script>
+<script>
+
+</script>
+</body>
+</html>
