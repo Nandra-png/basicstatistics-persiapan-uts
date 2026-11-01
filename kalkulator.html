@@ -353,12 +353,18 @@ ul.tight li{margin:6px 0;font-size:14.5px;line-height:1.65}
 .self-test{background:#f7f5ec;border:1.5px dashed #cfc6af;border-radius:8px;padding:14px;margin:16px 0}
 .reveal-btn{font:inherit;font-weight:700;font-size:13px;cursor:pointer;padding:6px 14px;border-radius:6px;
             border:1.5px solid var(--ink);background:#fff;margin-top:8px}
-.calc-hint{margin-top:12px;padding:10px 12px;border-left:3px solid #0f766e;background:#eef7f4;border-radius:0 6px 6px 0;font-size:13px;line-height:1.85}
-.calc-hint b{color:#0f766e}
-.calc-hint code{background:#fff;border:1px solid #cfe3dc;border-radius:4px;padding:1px 5px;font-family:Consolas,monospace;font-size:12px;white-space:nowrap}
 .reveal-content{margin-top:10px;padding-top:10px;border-top:1px dashed #dcd3be;display:none}
 .worked{background:#fdfcf7;border:1.5px solid #d9d1bc;border-left:4px solid var(--ok);border-radius:8px;padding:12px 16px;margin:12px 0}
 .worked h4{margin:0 0 8px;font-size:14px;color:var(--ok);font-weight:800;letter-spacing:.03em;text-transform:uppercase}
+
+/* ---------- drill "tebak rumus" ---------- */
+.drill-opts{display:grid;gap:7px;margin:9px 0}
+.drill-opts button{font:inherit;font-size:13.5px;text-align:left;cursor:pointer;padding:9px 13px;
+  border:1.5px solid #cfc6af;border-radius:7px;background:#fff;color:var(--ink);transition:.12s}
+.drill-opts button:hover:not([style*="background"]){background:#f6f2e6;border-color:var(--ink-soft)}
+.drill-opts button:disabled{cursor:default}
+.drill-fb{display:none;font-size:13.5px;padding:8px 12px;border-radius:6px;background:#f7f5ec;
+  border:1px dashed #cfc6af;margin-top:4px;line-height:1.6}
 
 .tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .rumus-tbl{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0}
@@ -382,6 +388,7 @@ ul.tight li{margin:6px 0;font-size:14.5px;line-height:1.65}
       <li class="now"><span class="dot"></span><a href="#k0">Pengantar<small>Trik Kalkulator</small></a></li>
       <li><span class="dot"></span><a href="#k1">Panduan Tuts<small>Mode SD &amp; Shortcut</small></a></li>
       <li><span class="dot"></span><a href="#k2">10 Latihan<small>Drill Mandiri UTS</small></a></li>
+      <li><span class="dot"></span><a href="#k3">🔍 Tebak Rumus<small>15 Pola Soal PPT</small></a></li>
     </ul>
   </div>
   <div class="panel">
@@ -475,10 +482,6 @@ Ketik: 20 -> Tekan [M+]  -> Layar muncul: n=5</div>
     <p>Seorang analis data mengumpulkan variabel berikut dari aplikasi e-commerce: (1) ID Pelanggan, (2) Rating Bintang Produk (1–5), (3) Suhu Ruang Server (<sup></sup>circC), (4) Total Belanja Bulanan (Rp). Tentukan skala pengukuran keempat variabel tersebut secara berurutan!</p>
     <button class="reveal-btn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Lihat Pembahasan &amp; Kunci</button>
     <div class="reveal-content">
-      <div class="calc-hint"><b>🧮 Tombol kalkulator</b><br>
-                Gak butuh kalkulator — soal ini murni logika/hafalan skala data.<br>
-        Kalau mau aman: hafal pohonnya → <b>ada urutan?</b> tidak = nominal · ya → <b>jarak sama?</b> tidak = ordinal, ya → <b>nol sejati?</b> tidak = interval, ya = rasio.<br>
-      </div>
       <p><b>Jawaban:</b> Nominal, Ordinal, Interval, Rasio.</p>
       <ul class="tight">
         <li>ID Pelanggan = <b>Nominal</b> (identitas/label).</li>
@@ -503,12 +506,6 @@ Ketik: 20 -> Tekan [M+]  -> Layar muncul: n=5</div>
     <p>Berapa nilai: (a) P(K)? (b) P(K | P)? (c) P(P ∪ K)?</p>
     <button class="reveal-btn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Lihat Pembahasan &amp; Kunci</button>
     <div class="reveal-content">
-      <div class="calc-hint"><b>🧮 Tombol kalkulator</b><br>
-                Pecahan diubah ke desimal: <code>45 ÷ 120 =</code> → 0,375<br>
-        Conditional: <code>25 ÷ 40 =</code> → 0,625<br>
-        Union: <code>(40 + 45 − 25) ÷ 120 =</code> → 0,5<br>
-        Tekan <code>S⇔D</code> kalau mau lihat hasilnya sebagai pecahan (3/8, 5/8, 1/2).<br>
-      </div>
       <ul class="tight">
         <li>Total baris Prioritas = 25 + 15 = 40. Total Reguler = 20 + 60 = 80. Grand Total = 120.</li>
         <li>Total Punya Kartu Kredit (K) = 25 + 20 = 45.</li>
@@ -526,14 +523,6 @@ Ketik: 20 -> Tekan [M+]  -> Layar muncul: n=5</div>
     <p>Hitunglah: (a) Mean, (b) Median, (c) Variansi Sampel (s²), (d) Koefisien Variasi (CV)!</p>
     <button class="reveal-btn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Lihat Pembahasan &amp; Kunci</button>
     <div class="reveal-content">
-      <div class="calc-hint"><b>🧮 Tombol kalkulator</b><br>
-                Reset dulu: <code>MODE</code> → <code>2</code> (SD), lalu <code>SHIFT MODE 1 =</code> (Scl) → “Stat Clear”.<br>
-        Input: <code>4 M+</code> <code>6 M+</code> <code>7 M+</code> <code>7 M+</code> <code>8 M+</code> <code>9 M+</code> <code>10 M+</code> <code>11 M+</code> <code>12 M+</code> <code>16 M+</code> (layar naik n=1…10).<br>
-        Mean: <code>SHIFT 2 1 =</code> → <b>9</b><br>
-        SD sampel: <code>SHIFT 2 3 =</code> → <b>3,4340…</b> (ini s). Variansi: langsung <code>x² =</code> → <b>11,78</b>.<br>
-        Median tetap manual (rata-rata data ke-5 & ke-6): <code>(8 + 9) ÷ 2 =</code> → <b>8,5</b><br>
-        CV: <code>3,43 ÷ 9 × 100 =</code> → <b>38,1%</b><br>
-      </div>
       <ul class="tight">
         <li>Σ X = 90, n = 10 → <b>Mean x̄ = <span class="frac"><span class="top">90</span><span class="bot">10</span></span> = <b>9,00</b> komplain</b>.</li>
         <li>Data sudah urut. Median = <span class="frac"><span class="top">data ke-5 + data ke-6</span><span class="bot">2</span></span> = <span class="frac"><span class="top">8 + 9</span><span class="bot">2</span></span> = <b>8,50</b>.</li>
@@ -552,12 +541,6 @@ Ketik: 20 -> Tekan [M+]  -> Layar muncul: n=5</div>
     <p>Tentukan: (a) Q₁, (b) Q₃, (c) IQR, (d) Apakah nilai 16 merupakan outlier?</p>
     <button class="reveal-btn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Lihat Pembahasan &amp; Kunci</button>
     <div class="reveal-content">
-      <div class="calc-hint"><b>🧮 Tombol kalkulator</b><br>
-                Q₁: <code>11 ÷ 4 =</code> → 2,75 (posisi), lalu <code>6 + 0,75 × (7 − 6) =</code> → <b>6,75</b><br>
-        Q₃: <code>33 ÷ 4 =</code> → 8,25, lalu <code>11 + 0,25 × (12 − 11) =</code> → <b>11,25</b><br>
-        IQR: <code>11,25 − 6,75 =</code> → <b>4,5</b><br>
-        Pagar atas: <code>11,25 + 1,5 × 4,5 =</code> → <b>18</b> (16 < 18 → bukan outlier)<br>
-      </div>
       <ul class="tight">
         <li>Posisi Q₁ = <span class="frac"><span class="top">n+1</span><span class="bot">4</span></span> = <span class="frac"><span class="top">11</span><span class="bot">4</span></span> = 2,75 → Data ke-2 + 0,75(Data ke-3 - Data ke-2) = 6 + 0,75(7 - 6) = <b>6,75</b>.</li>
         <li>Posisi Q₃ = <span class="frac"><span class="top">3(n+1)</span><span class="bot">4</span></span> = <span class="frac"><span class="top">33</span><span class="bot">4</span></span> = 8,25 → Data ke-8 + 0,25(Data ke-9 - Data ke-8) = 11 + 0,25(12 - 11) = <b>11,25</b>.</li>
@@ -584,12 +567,6 @@ Ketik: 20 -> Tekan [M+]  -> Layar muncul: n=5</div>
     <p>Hitunglah Mean (x̄) dan Standar Deviasi (s) sampel data tersebut!</p>
     <button class="reveal-btn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Lihat Pembahasan &amp; Kunci</button>
     <div class="reveal-content">
-      <div class="calc-hint"><b>🧮 Tombol kalkulator</b><br>
-                Isi midpoint + frekuensi sekaligus: <code>24,5 SHIFT ; 5 M+</code> → <code>34,5 SHIFT ; 12 M+</code> → <code>44,5 SHIFT ; 8 M+</code><br>
-        Mean: <code>SHIFT 2 1 =</code> → <b>35,7</b><br>
-        SD sampel: <code>SHIFT 2 3 =</code> → <b>7,2578…</b> (≈7,26). Variansi: <code>x² =</code> → <b>52,67</b><br>
-        Kalau kalkulator gak punya <code>;</code>: hitung manual <code>892,5 ÷ 25 =</code> buat mean, terus pakai rumus pembilang variansi.<br>
-      </div>
       <ul class="tight">
         <li>Mean x̄ = <span class="frac"><span class="top">Σ f · m</span><span class="bot">n</span></span> = <span class="frac"><span class="top">892,5</span><span class="bot">25</span></span> = <b>35,70 menit</b>.</li>
         <li>Pembilang variansi = Σ f · m² - <span class="frac"><span class="top">(Σ f · m)²</span><span class="bot">n</span></span> = 33.126,25 - <span class="frac"><span class="top">(892,5)²</span><span class="bot">25</span></span> = 33.126,25 - <span class="frac"><span class="top">796.556,25</span><span class="bot">25</span></span> = 33.126,25 - 31.862,25 = <b>1.264,00</b>.</li>
@@ -611,12 +588,6 @@ Ketik: 20 -> Tekan [M+]  -> Layar muncul: n=5</div>
     <p>Hitunglah Nilai Harapan E(X) dan Variansi Var(X)!</p>
     <button class="reveal-btn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Lihat Pembahasan &amp; Kunci</button>
     <div class="reveal-content">
-      <div class="calc-hint"><b>🧮 Tombol kalkulator</b><br>
-                E(X) sekali jalan: <code>1 × 0,2 + 2 × 0,5 + 3 × 0,2 + 4 × 0,1 =</code> → <b>2,2</b><br>
-        Σx²P(x): <code>1 × 0,2 + 4 × 0,5 + 9 × 0,2 + 16 × 0,1 =</code> → <b>5,6</b><br>
-        Var: <code>5,6 − 2,2x² =</code> → <b>0,76</b> (tombol <code>x²</code> otomatis kuadratin 2,2)<br>
-        σ: <code>√0,76 =</code> → <b>0,87</b><br>
-      </div>
       <ul class="tight">
         <li>E(X) = (1)(0,20) + (2)(0,50) + (3)(0,20) + (4)(0,10) = 0,20 + 1,00 + 0,60 + 0,40 = <b>2,20 cangkir</b>.</li>
         <li>Σ x² P(x) = (1²)(0,20) + (2²)(0,50) + (3²)(0,20) + (4²)(0,10) = 0,20 + 2,00 + 1,80 + 1,60 = <b>5,60</b>.</li>
@@ -632,11 +603,6 @@ Ketik: 20 -> Tekan [M+]  -> Layar muncul: n=5</div>
     <p>Sebuah tes pilihan ganda memiliki 5 soal (n = 5), masing-masing 4 opsi jawaban (p = 0,25). Seorang mahasiswa menjawab murni dengan menebak acak. Berapa peluang ia menjawab <b>tepat 3 soal dengan benar</b>?</p>
     <button class="reveal-btn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Lihat Pembahasan &amp; Kunci</button>
     <div class="reveal-content">
-      <div class="calc-hint"><b>🧮 Tombol kalkulator</b><br>
-                Kombinasi: <code>5 nCr 3 =</code> → <b>10</b><br>
-        Peluang: <code>10 × 0,25x³ × 0,75x² =</code> → <b>0,0879</b><br>
-        Kalau gak ada <code>x^</code>: <code>0,25 × 0,25 × 0,25 =</code>, <code>0,75 × 0,75 =</code>, lalu kalikan 10.<br>
-      </div>
       <ul class="tight">
         <li>₅C₃ = <span class="frac"><span class="top">5!</span><span class="bot">3! · 2!</span></span> = 10.</li>
         <li>P(X = 3) = 10 × (0,25)³ × (0,75)<sup>5 - 3</sup> = 10 × 0,015625 × (0,75)² = 0,15625 × 0,5625 = <b>0,0879 (8,79%)</b>.</li>
@@ -650,11 +616,6 @@ Ketik: 20 -> Tekan [M+]  -> Layar muncul: n=5</div>
     <p>Rata-rata terdapat 2 kesalahan ketik per halaman naskah novel (λ = 2). Berapa peluang dalam satu halaman acak terdapat <b>tepat 1 kesalahan ketik</b>?</p>
     <button class="reveal-btn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Lihat Pembahasan &amp; Kunci</button>
     <div class="reveal-content">
-      <div class="calc-hint"><b>🧮 Tombol kalkulator</b><br>
-                e⁻²: <code>SHIFT ln (−) 2 =</code> → <b>0,135335</b><br>
-        Lanjut: <code>× 2 ÷ 1 =</code> (1! = 1) → <b>0,2707</b><br>
-        Kalau gak ada <code>eˣ</code>: <code>2,71828 x²</code> lalu <code>SHIFT 1/x</code> (jadi 1/e²).<br>
-      </div>
       <ul class="tight">
         <li>P(X = 1) = <span class="frac"><span class="top">e<sup>-2</sup> × 2¹</span><span class="bot">1!</span></span> = <span class="frac"><span class="top">0,135335 × 2</span><span class="bot">1</span></span> = <b>0,2707 (27,07%)</b>.</li>
       </ul>
@@ -667,12 +628,6 @@ Ketik: 20 -> Tekan [M+]  -> Layar muncul: n=5</div>
     <p>Daya tahan baterai ponsel berdistribusi normal dengan rata-rata μ = 14 jam dan simpangan baku σ = 2 jam. Berapa persentase baterai yang mampu bertahan <b>antara 11 jam hingga 17 jam</b>?</p>
     <button class="reveal-btn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Lihat Pembahasan &amp; Kunci</button>
     <div class="reveal-content">
-      <div class="calc-hint"><b>🧮 Tombol kalkulator</b><br>
-                Z batas bawah: <code>(11 − 14) ÷ 2 =</code> → <b>−1,5</b><br>
-        Z batas atas: <code>(17 − 14) ÷ 2 =</code> → <b>1,5</b><br>
-        Luas tabel Z dibaca MANUAL (kalkulator gak punya): 0,0668 dan 0,9332<br>
-        Selisih: <code>0,9332 − 0,0668 =</code> → <b>0,8664</b><br>
-      </div>
       <ul class="tight">
         <li>Z<sub>11</sub> = <span class="frac"><span class="top">11 - 14</span><span class="bot">2</span></span> = -1,50 → Luas kiri tabel Z = <b>0,0668</b>.</li>
         <li>Z<sub>17</sub> = <span class="frac"><span class="top">17 - 14</span><span class="bot">2</span></span> = +1,50 → Luas kiri tabel Z = <b>0,9332</b>.</li>
@@ -687,10 +642,6 @@ Ketik: 20 -> Tekan [M+]  -> Layar muncul: n=5</div>
     <p>Masih dari data baterai ponsel di Soal 9 (μ = 14, σ = 2). Produsen ingin memberikan garansi ganti baru untuk <b>2,5% ponsel dengan daya tahan baterai terpendek</b>. Berapa jam batas daya tahan maksimum agar masih memenuhi syarat garansi?</p>
     <button class="reveal-btn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Lihat Pembahasan &amp; Kunci</button>
     <div class="reveal-content">
-      <div class="calc-hint"><b>🧮 Tombol kalkulator</b><br>
-                Cari Z dari tabel: luas 0,0250 → <b>−1,96</b> (manual, tabel Z)<br>
-        Konversi balik: <code>14 + (−1,96 × 2) =</code> → <b>10,08</b><br>
-      </div>
       <ul class="tight">
         <li>2,5% terpendek berada di ekor kiri paling bawah → Cari luas tabel = 0,0250.</li>
         <li>Di tabel Z: nilai luas 0,0250 persis berada pada baris -1,9 kolom 0,06 → Z = <b>-1,96</b>.</li>
@@ -701,6 +652,249 @@ Ketik: 20 -> Tekan [M+]  -> Layar muncul: n=5</div>
     </div>
   </div>
 </section>
+
+<!-- SECTION 3: TEBAK RUMUS (Pattern Recognition Drill) -->
+<section class="sheet" id="k3">
+  <div class="head"><div class="badge">3</div><div>
+    <h2>🔍 Tebak Rumus — Baca Soal, Pilih Rumus</h2>
+    <div class="sub">15 Cuplikan Soal Asli dari PPT · Latih Pola "Kata Kunci → Rumus"</div>
+  </div></div>
+
+  <p style="margin:14px 0;line-height:1.7">
+    Masalah paling umum di ujian: <b>ngerti semua rumus, tapi pas baca soal gatau harus pakai yang mana.</b>
+    Di bawah ini ada 15 potongan soal <i>persis dari slide PPT dosen</i>. Tiap soal cuma minta satu hal:
+    <b>rumus/pendekatan mana yang lu pakai?</b> Jawab dulu, baru buka pembahasannya.
+  </p>
+
+  <div style="background:#eef3f7;border:1.5px solid #cdd8e0;border-radius:8px;padding:12px 16px;margin:10px 0 18px">
+    <b style="color:#1f5f8b">🗺️ Peta Kata Kunci → Rumus (contekan)</b>
+    <div class="tblwrap"><table class="rumus-tbl" style="margin-top:8px">
+      <thead><tr><th>Kata Kunci di Soal</th><th>Rumus / Pendekatan</th></tr></thead>
+      <tbody>
+        <tr><td>label, nama, ID, kategori</td><td><b>Nominal</b></td></tr>
+        <tr><td>ranking, peringkat, tingkat kepuasan</td><td><b>Ordinal</b></td></tr>
+        <tr><td>suhu °C, tahun kalender, IQ</td><td><b>Interval</b> (nol bukan ketiadaan)</td></tr>
+        <tr><td>berat, tinggi, harga, jarak, waktu</td><td><b>Rasio</b> (nol = tidak ada)</td></tr>
+        <tr><td>"rata-rata", "mean"</td><td>x̄ = <span class="frac"><span class="top">Σ X</span><span class="bot">n</span></span></td></tr>
+        <tr><td>"simpangan baku", "standar deviasi"</td><td>s = √<span class="rad"><span class="frac"><span class="top">Σ X² - <span class="frac"><span class="top">(Σ X)²</span><span class="bot">n</span></span></span><span class="bot">n-1</span></span></span></td></tr>
+        <tr><td>"koefisien variasi", "CV"</td><td>CV = <span class="frac"><span class="top">s</span><span class="bot">x̄</span></span> × 100%</td></tr>
+        <tr><td>"kuartil", "IQR", "outlier"</td><td>Q₁, Q₃ via posisi (n+1)/4; IQR; pagar ± 1,5·IQR</td></tr>
+        <tr><td>"tabel kontingensi", "given that", "|"</td><td>P(A|B) = <span class="frac"><span class="top">P(A ∩ B)</span><span class="bot">P(B)</span></span></td></tr>
+        <tr><td>"atau", "union", "∪"</td><td>P(A ∪ B) = P(A) + P(B) - P(A ∩ B)</td></tr>
+        <tr><td>"independen?"</td><td>Cek P(A|B) = P(A)?</td></tr>
+        <tr><td>"berapa kali dari n percobaan", fixed n, probability p</td><td><b>Binomial</b> P(X=k) = ₙCₖ · pᵏ (1-p)<sup>n-k</sup></td></tr>
+        <tr><td>"rata-rata kejadian per satuan waktu/area"</td><td><b>Poisson</b> P(X=k) = <span class="frac"><span class="top">e<sup>-λ</sup>λᵏ</span><span class="bot">k!</span></span></td></tr>
+        <tr><td>"berdistribusi normal", "between", "more than"</td><td>Z = <span class="frac"><span class="top">X - μ</span><span class="bot">σ</span></span> lalu tabel Z</td></tr>
+        <tr><td>"persentil bawah/atas X%", "garansi"</td><td><b>Inverse Normal</b> X = μ + Zσ (cari Z dari luas)</td></tr>
+        <tr><td>"uniform", "equally likely", "antara a dan b"</td><td>P = <span class="frac"><span class="top">d - c</span><span class="bot">b - a</span></span>, μ = <span class="frac"><span class="top">a+b</span><span class="bot">2</span></span></td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div id="drillWrap">
+
+  <!-- DRILL 1 -->
+  <div class="self-test drill-q" data-ans="1">
+    <b>Drill 1</b> · <span style="color:#888;font-size:13px">Sumber: PPT S1 slide 14</span>
+    <div class="fb-block" style="margin:8px 0">"Seorang peneliti mencatat <b>nomor plat kendaraan</b> yang parkir di kampus hari ini. Data tersebut termasuk skala pengukuran apa?"</div>
+    <div class="drill-opts">
+      <button onclick="checkDrill(this,1)">A. Nominal</button>
+      <button onclick="checkDrill(this,2)">B. Ordinal</button>
+      <button onclick="checkDrill(this,3)">C. Interval</button>
+      <button onclick="checkDrill(this,4)">D. Rasio</button>
+    </div>
+    <div class="drill-fb"></div>
+  </div>
+
+  <!-- DRILL 2 -->
+  <div class="self-test drill-q" data-ans="2">
+    <b>Drill 2</b> · <span style="color:#888;font-size:13px">Sumber: PPT S1 slide 18</span>
+    <div class="fb-block" style="margin:8px 0">"Mahasiswa diminta menilai <b>tingkat kepuasan kantin</b> dengan skala: Sangat Tidak Puas / Tidak Puas / Biasa / Puas / Sangat Puas. Skala apa ini?"</div>
+    <div class="drill-opts">
+      <button onclick="checkDrill(this,1)">A. Nominal</button>
+      <button onclick="checkDrill(this,2)">B. Ordinal</button>
+      <button onclick="checkDrill(this,3)">C. Interval</button>
+      <button onclick="checkDrill(this,4)">D. Rasio</button>
+    </div>
+    <div class="drill-fb"></div>
+  </div>
+
+  <!-- DRILL 3 -->
+  <div class="self-test drill-q" data-ans="4">
+    <b>Drill 3</b> · <span style="color:#888;font-size:13px">Sumber: Latihan Soal Chapter 1</span>
+    <div class="fb-block" style="margin:8px 0">"Sebuah perusahaan mencatat <b>jumlah mata kuliah yang diambil</b> tiap mahasiswa magang. Variabel ini tergolong..."</div>
+    <div class="drill-opts">
+      <button onclick="checkDrill(this,1)">A. Categorical Nominal</button>
+      <button onclick="checkDrill(this,2)">B. Categorical Ordinal</button>
+      <button onclick="checkDrill(this,3)">C. Numerical Continuous</button>
+      <button onclick="checkDrill(this,4)">D. Numerical Discrete</button>
+    </div>
+    <div class="drill-fb"></div>
+  </div>
+
+  <!-- DRILL 4 -->
+  <div class="self-test drill-q" data-ans="2">
+    <b>Drill 4</b> · <span style="color:#888;font-size:13px">Sumber: PPT S3</span>
+    <div class="fb-block" style="margin:8px 0">"Berikut data kalori per porsi 7 jenis sereal: 80, 100, 100, 110, 130, 190, 200. Hitunglah <b>standar deviasi sampel</b>."</div>
+    <div class="drill-opts">
+      <button onclick="checkDrill(this,1)">A. x̄ = <span class="frac"><span class="top">Σ X</span><span class="bot">n</span></span></button>
+      <button onclick="checkDrill(this,2)">B. s = √<span class="rad"><span class="frac"><span class="top">Σ X² - <span class="frac"><span class="top">(Σ X)²</span><span class="bot">n</span></span></span><span class="bot">n-1</span></span></span></button>
+      <button onclick="checkDrill(this,3)">C. CV = <span class="frac"><span class="top">s</span><span class="bot">x̄</span></span> × 100%</button>
+      <button onclick="checkDrill(this,4)">D. IQR = Q₃ - Q₁</button>
+    </div>
+    <div class="drill-fb"></div>
+  </div>
+
+  <!-- DRILL 5 -->
+  <div class="self-test drill-q" data-ans="3">
+    <b>Drill 5</b> · <span style="color:#888;font-size:13px">Sumber: PPT S3</span>
+    <div class="fb-block" style="margin:8px 0">"Dua mesin produksi: Mesin A punya mean = 50 mm, s = 3 mm. Mesin B punya mean = 120 mm, s = 5 mm. <b>Mana yang lebih konsisten?</b>"</div>
+    <div class="drill-opts">
+      <button onclick="checkDrill(this,1)">A. Bandingkan s langsung → Mesin A menang</button>
+      <button onclick="checkDrill(this,2)">B. Bandingkan x̄ → Mesin B menang</button>
+      <button onclick="checkDrill(this,3)">C. Hitung CV masing-masing, yang lebih kecil lebih konsisten</button>
+      <button onclick="checkDrill(this,4)">D. Hitung IQR masing-masing</button>
+    </div>
+    <div class="drill-fb"></div>
+  </div>
+
+  <!-- DRILL 6 -->
+  <div class="self-test drill-q" data-ans="1">
+    <b>Drill 6</b> · <span style="color:#888;font-size:13px">Sumber: PPT S4 slide 24</span>
+    <div class="fb-block" style="margin:8px 0">"<b>If a household purchased a television with a faster refresh rate</b>, what is the probability that it also purchased a streaming media player?" (Tabel kontingensi diberikan.)</div>
+    <div class="drill-opts">
+      <button onclick="checkDrill(this,1)">A. P(A|B) = <span class="frac"><span class="top">P(A ∩ B)</span><span class="bot">P(B)</span></span> — Conditional Probability</button>
+      <button onclick="checkDrill(this,2)">B. P(A ∪ B) = P(A) + P(B) - P(A ∩ B) — Addition Rule</button>
+      <button onclick="checkDrill(this,3)">C. Binomial Distribution</button>
+      <button onclick="checkDrill(this,4)">D. Bayes' Theorem</button>
+    </div>
+    <div class="drill-fb"></div>
+  </div>
+
+  <!-- DRILL 7 -->
+  <div class="self-test drill-q" data-ans="2">
+    <b>Drill 7</b> · <span style="color:#888;font-size:13px">Sumber: PPT S4 slide 28</span>
+    <div class="fb-block" style="margin:8px 0">"Determine whether <b>being satisfied with the purchase</b> and the <b>refresh rate of the television</b> purchased are <b>independent</b>." (Tabel 4.3 diberikan.)</div>
+    <div class="drill-opts">
+      <button onclick="checkDrill(this,1)">A. Hitung P(A ∪ B)</button>
+      <button onclick="checkDrill(this,2)">B. Cek apakah P(A|B) = P(A)</button>
+      <button onclick="checkDrill(this,3)">C. Hitung E(X) = Σ x · P(x)</button>
+      <button onclick="checkDrill(this,4)">D. Distribusi Poisson</button>
+    </div>
+    <div class="drill-fb"></div>
+  </div>
+
+  <!-- DRILL 8 -->
+  <div class="self-test drill-q" data-ans="3">
+    <b>Drill 8</b> · <span style="color:#888;font-size:13px">Sumber: PPT S6 slide 16</span>
+    <div class="fb-block" style="margin:8px 0">"A student is taking a <b>multiple-choice exam</b> in which each question has <b>four choices</b>. She randomly guesses on <b>five questions</b>. What is the probability that she gets <b>exactly 3 correct</b>?"</div>
+    <div class="drill-opts">
+      <button onclick="checkDrill(this,1)">A. Poisson — karena ada "rata-rata" kejadian</button>
+      <button onclick="checkDrill(this,2)">B. Normal — karena ada mean dan std dev</button>
+      <button onclick="checkDrill(this,3)">C. Binomial — n fixed, p tiap soal sama, sukses/gagal</button>
+      <button onclick="checkDrill(this,4)">D. Conditional — P(A|B)</button>
+    </div>
+    <div class="drill-fb"></div>
+  </div>
+
+  <!-- DRILL 9 -->
+  <div class="self-test drill-q" data-ans="3">
+    <b>Drill 9</b> · <span style="color:#888;font-size:13px">Sumber: PPT S6 slide 17</span>
+    <div class="fb-block" style="margin:8px 0">"Failure rate for LED light bulbs is <b>5%</b>. A random sample of <b>10</b> is selected. What is the probability that <b>two or fewer</b> are defective?"</div>
+    <div class="drill-opts">
+      <button onclick="checkDrill(this,1)">A. Poisson — P(X ≤ 2) = Σ<sub>k=0</sub>² <span class="frac"><span class="top">e<sup>-λ</sup>λᵏ</span><span class="bot">k!</span></span></button>
+      <button onclick="checkDrill(this,2)">B. Normal — Z = <span class="frac"><span class="top">X - μ</span><span class="bot">σ</span></span></button>
+      <button onclick="checkDrill(this,3)">C. Binomial — P(X ≤ 2) = Σ<sub>k=0</sub>² ₙCₖ · pᵏ(1-p)<sup>n-k</sup></button>
+      <button onclick="checkDrill(this,4)">D. Hypergeometric</button>
+    </div>
+    <div class="drill-fb"></div>
+  </div>
+
+  <!-- DRILL 10 -->
+  <div class="self-test drill-q" data-ans="1">
+    <b>Drill 10</b> · <span style="color:#888;font-size:13px">Sumber: PPT S6 slide 22</span>
+    <div class="fb-block" style="margin:8px 0">"The <b>mean number of new visitors</b> to a website is <b>4.0 per minute</b>. What is the probability that in any given minute, <b>two or more</b> new visitors will arrive?"</div>
+    <div class="drill-opts">
+      <button onclick="checkDrill(this,1)">A. Poisson — ada "rata-rata per satuan waktu"</button>
+      <button onclick="checkDrill(this,2)">B. Binomial — karena ada sukses/gagal</button>
+      <button onclick="checkDrill(this,3)">C. Normal — karena λ > 1</button>
+      <button onclick="checkDrill(this,4)">D. Uniform — karena "in any given minute"</button>
+    </div>
+    <div class="drill-fb"></div>
+  </div>
+
+  <!-- DRILL 11 -->
+  <div class="self-test drill-q" data-ans="1">
+    <b>Drill 11</b> · <span style="color:#888;font-size:13px">Sumber: PPT S6 slide 23</span>
+    <div class="fb-block" style="margin:8px 0">"The <b>mean number of chocolate-chip parts per cookie is 6.0</b>. What is the probability that in any particular cookie, <b>fewer than five</b> chocolate-chip parts will be found?"</div>
+    <div class="drill-opts">
+      <button onclick="checkDrill(this,1)">A. Poisson — P(X < 5) = Σ<sub>k=0</sub>⁴ <span class="frac"><span class="top">e<sup>-6</sup> · 6ᵏ</span><span class="bot">k!</span></span></button>
+      <button onclick="checkDrill(this,2)">B. Binomial — ada n cookie dan p</button>
+      <button onclick="checkDrill(this,3)">C. Normal — mean dan std dev</button>
+      <button onclick="checkDrill(this,4)">D. Expected Value — E(X) = Σ x · P(x)</button>
+    </div>
+    <div class="drill-fb"></div>
+  </div>
+
+  <!-- DRILL 12 -->
+  <div class="self-test drill-q" data-ans="2">
+    <b>Drill 12</b> · <span style="color:#888;font-size:13px">Sumber: PPT S7</span>
+    <div class="fb-block" style="margin:8px 0">"The amount of <b>ground coffee in a jar</b> is normally distributed with μ = 45,16 g and σ = 10 g. What is the probability that a selected jar contains <b>less than 25 grams</b>?"</div>
+    <div class="drill-opts">
+      <button onclick="checkDrill(this,1)">A. Binomial — less than → kumulatif</button>
+      <button onclick="checkDrill(this,2)">B. Normal — Z = <span class="frac"><span class="top">25 - 45,16</span><span class="bot">10</span></span>, lalu tabel Z</button>
+      <button onclick="checkDrill(this,3)">C. Poisson — "per jar" = satuan</button>
+      <button onclick="checkDrill(this,4)">D. Uniform</button>
+    </div>
+    <div class="drill-fb"></div>
+  </div>
+
+  <!-- DRILL 13 -->
+  <div class="self-test drill-q" data-ans="4">
+    <b>Drill 13</b> · <span style="color:#888;font-size:13px">Sumber: PPT S7</span>
+    <div class="fb-block" style="margin:8px 0">"Produsen menjamin garansi ganti baru untuk <b>5% ponsel dengan daya tahan terpendek</b>. Diketahui μ = 14 jam, σ = 2 jam, berdistribusi normal. Berapa batas jam garansi?"</div>
+    <div class="drill-opts">
+      <button onclick="checkDrill(this,1)">A. Normal biasa — Z = <span class="frac"><span class="top">X - μ</span><span class="bot">σ</span></span></button>
+      <button onclick="checkDrill(this,2)">B. Poisson — mencari batas waktu</button>
+      <button onclick="checkDrill(this,3)">C. Conditional Probability</button>
+      <button onclick="checkDrill(this,4)">D. Inverse Normal — cari Z dari luas, lalu X = μ + Zσ</button>
+    </div>
+    <div class="drill-fb"></div>
+  </div>
+
+  <!-- DRILL 14 -->
+  <div class="self-test drill-q" data-ans="3">
+    <b>Drill 14</b> · <span style="color:#888;font-size:13px">Sumber: PPT S7</span>
+    <div class="fb-block" style="margin:8px 0">"An airplane takes between <b>0 and 110 minutes</b> to fly from Mumbai to Delhi. The distribution is <b>uniform</b>. Find the probability that the flight takes <b>less than 40 minutes</b>."</div>
+    <div class="drill-opts">
+      <button onclick="checkDrill(this,1)">A. Normal — Z = <span class="frac"><span class="top">40 - 55</span><span class="bot">31,75</span></span></button>
+      <button onclick="checkDrill(this,2)">B. Poisson — "per flight"</button>
+      <button onclick="checkDrill(this,3)">C. Uniform — P(X < 40) = <span class="frac"><span class="top">40 - 0</span><span class="bot">110 - 0</span></span></button>
+      <button onclick="checkDrill(this,4)">D. Binomial</button>
+    </div>
+    <div class="drill-fb"></div>
+  </div>
+
+  <!-- DRILL 15 -->
+  <div class="self-test drill-q" data-ans="1">
+    <b>Drill 15</b> · <span style="color:#888;font-size:13px">Sumber: PPT S6 slide 28</span>
+    <div class="fb-block" style="margin:8px 0">"<b>24% of consumers</b> registering a complaint cited 'deposit and withdrawal'. A random sample of <b>20 consumers</b> is selected. What is the probability that <b>none</b> cited 'deposit and withdrawal'?"</div>
+    <div class="drill-opts">
+      <button onclick="checkDrill(this,1)">A. Binomial — P(X=0) = <sub>20</sub>C₀ · (0,24)⁰ (0,76)<sup>20</sup></button>
+      <button onclick="checkDrill(this,2)">B. Poisson — P(X=0) = e<sup>-λ</sup></button>
+      <button onclick="checkDrill(this,3)">C. Normal — hitung Z dulu</button>
+      <button onclick="checkDrill(this,4)">D. Conditional Probability</button>
+    </div>
+    <div class="drill-fb"></div>
+  </div>
+
+  </div><!-- /drillWrap -->
+
+  <div style="margin-top:18px;text-align:center">
+    <span id="drillScore" style="font-weight:800;font-size:16px;color:var(--blue)">Skor: 0 / 15</span>
+    <button class="reveal-btn" onclick="resetDrill()" style="margin-left:12px">🔄 Reset Semua</button>
+  </div>
+</section>
 </main>
 
 <aside class="rail right" id="railRight">
@@ -709,6 +903,7 @@ Ketik: 20 -> Tekan [M+]  -> Layar muncul: n=5</div>
     <div class="kv"><span>Tipe Alat</span><b>Kalkulator Fisik</b></div>
     <div class="kv"><span>Model</span><b>Joyko / Casio MS</b></div>
     <div class="kv"><span>Latihan</span><b>10 Butir Mandiri</b></div>
+    <div class="kv"><span>Tebak Rumus</span><b>15 Pola Soal PPT</b></div>
     <div class="kv"><span>Solusi</span><b>Revealable Step</b></div>
   </div>
   <div class="panel">
@@ -771,6 +966,40 @@ Ketik: 20 -> Tekan [M+]  -> Layar muncul: n=5</div>
 
 </script>
 <script>
+
+var drillCorrect = 0, drillTotal = 0;
+function checkDrill(btn, chosen) {
+  var card = btn.closest('.drill-q');
+  if (card.dataset.done) return;
+  card.dataset.done = '1';
+  var ans = parseInt(card.dataset.ans);
+  var fb = card.querySelector('.drill-fb');
+  var btns = card.querySelectorAll('.drill-opts button');
+  drillTotal++;
+  if (chosen === ans) {
+    drillCorrect++;
+    btn.style.background = '#d4edda'; btn.style.border = '2px solid #28a745'; btn.style.fontWeight = '800';
+    fb.innerHTML = '<span style="color:#28a745;font-weight:800">✓ Benar!</span>';
+  } else {
+    btn.style.background = '#f8d7da'; btn.style.border = '2px solid #dc3545';
+    btns[ans - 1].style.background = '#d4edda'; btns[ans - 1].style.border = '2px solid #28a745'; btns[ans - 1].style.fontWeight = '800';
+    fb.innerHTML = '<span style="color:#dc3545;font-weight:800">✗ Salah.</span> Jawaban yang benar ditandai hijau.';
+  }
+  fb.style.display = 'block';
+  document.getElementById('drillScore').textContent = 'Skor: ' + drillCorrect + ' / 15 (dijawab: ' + drillTotal + ')';
+}
+function resetDrill() {
+  drillCorrect = 0; drillTotal = 0;
+  document.querySelectorAll('.drill-q').forEach(function(c) {
+    delete c.dataset.done;
+    c.querySelectorAll('.drill-opts button').forEach(function(b) {
+      b.style.background = ''; b.style.border = ''; b.style.fontWeight = '';
+    });
+    c.querySelector('.drill-fb').style.display = 'none';
+    c.querySelector('.drill-fb').innerHTML = '';
+  });
+  document.getElementById('drillScore').textContent = 'Skor: 0 / 15';
+}
 
 </script>
 </body>

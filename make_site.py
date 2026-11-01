@@ -218,6 +218,15 @@ ul.tight li{margin:6px 0;font-size:14.5px;line-height:1.65}
 .worked{background:#fdfcf7;border:1.5px solid #d9d1bc;border-left:4px solid var(--ok);border-radius:8px;padding:12px 16px;margin:12px 0}
 .worked h4{margin:0 0 8px;font-size:14px;color:var(--ok);font-weight:800;letter-spacing:.03em;text-transform:uppercase}
 
+/* ---------- drill "tebak rumus" ---------- */
+.drill-opts{display:grid;gap:7px;margin:9px 0}
+.drill-opts button{font:inherit;font-size:13.5px;text-align:left;cursor:pointer;padding:9px 13px;
+  border:1.5px solid #cfc6af;border-radius:7px;background:#fff;color:var(--ink);transition:.12s}
+.drill-opts button:hover:not([style*="background"]){background:#f6f2e6;border-color:var(--ink-soft)}
+.drill-opts button:disabled{cursor:default}
+.drill-fb{display:none;font-size:13.5px;padding:8px 12px;border-radius:6px;background:#f7f5ec;
+  border:1px dashed #cfc6af;margin-top:4px;line-height:1.6}
+
 .tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .rumus-tbl{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0}
 .rumus-tbl th{background:#eef3f7;text-align:left;padding:8px 10px;border:1px solid #cdd8e0;font-size:12.5px}
@@ -278,7 +287,8 @@ if __name__ == "__main__":
     assert tex(r"P(\text{bekerja})") == "P(bekerja)"
     assert tex(r"s^2") == "s²"
     assert tex(r"\bar{x}") == "x̄"
-    assert tex(r"x_{i}") == "x<sub>i</sub>"
+    assert tex(r"x_{i}") == "xᵢ"
+    assert tex(r"x_{k+1}") == "x<sub>k+1</sub>"
     assert tex(r"\left(\frac{a}{b}\right)").count("frac") == 1
     assert render_math("nilai $\\mu = 200$, $\\sigma = 40$").count("$") == 0
     print("make_site.py v5: konversi math native, self-check lulus.")
