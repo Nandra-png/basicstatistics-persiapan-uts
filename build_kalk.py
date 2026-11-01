@@ -95,6 +95,10 @@ Ketik: 20 -> Tekan [M+]  -> Layar muncul: n=5</div>
     <p>Seorang analis data mengumpulkan variabel berikut dari aplikasi e-commerce: (1) ID Pelanggan, (2) Rating Bintang Produk (1–5), (3) Suhu Ruang Server ($^\circ\text{C}$), (4) Total Belanja Bulanan (Rp). Tentukan skala pengukuran keempat variabel tersebut secara berurutan!</p>
     <button class="reveal-btn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Lihat Pembahasan &amp; Kunci</button>
     <div class="reveal-content">
+      <div class="calc-hint"><b>🧮 Tombol kalkulator</b><br>
+                Gak butuh kalkulator — soal ini murni logika/hafalan skala data.<br>
+        Kalau mau aman: hafal pohonnya → <b>ada urutan?</b> tidak = nominal · ya → <b>jarak sama?</b> tidak = ordinal, ya → <b>nol sejati?</b> tidak = interval, ya = rasio.<br>
+      </div>
       <p><b>Jawaban:</b> Nominal, Ordinal, Interval, Rasio.</p>
       <ul class="tight">
         <li>ID Pelanggan = <b>Nominal</b> (identitas/label).</li>
@@ -119,6 +123,12 @@ Ketik: 20 -> Tekan [M+]  -> Layar muncul: n=5</div>
     <p>Berapa nilai: (a) $P(K)$? (b) $P(K | P)$? (c) $P(P \cup K)$?</p>
     <button class="reveal-btn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Lihat Pembahasan &amp; Kunci</button>
     <div class="reveal-content">
+      <div class="calc-hint"><b>🧮 Tombol kalkulator</b><br>
+        Pecahan diubah ke desimal: <code>45 ÷ 120 =</code> → 0,375<br>
+        Conditional: <code>25 ÷ 40 =</code> → 0,625<br>
+        Union: <code>(40 + 45 − 25) ÷ 120 =</code> → 0,5<br>
+        Tekan <code>S⇔D</code> kalau mau lihat hasilnya sebagai pecahan (3/8, 5/8, 1/2).<br>
+      </div>
       <ul class="tight">
         <li>Total baris Prioritas = $25 + 15 = 40$. Total Reguler = $20 + 60 = 80$. Grand Total = 120.</li>
         <li>Total Punya Kartu Kredit ($K$) = $25 + 20 = 45$.</li>
@@ -136,6 +146,14 @@ Ketik: 20 -> Tekan [M+]  -> Layar muncul: n=5</div>
     <p>Hitunglah: (a) Mean, (b) Median, (c) Variansi Sampel ($s^2$), (d) Koefisien Variasi ($CV$)!</p>
     <button class="reveal-btn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Lihat Pembahasan &amp; Kunci</button>
     <div class="reveal-content">
+      <div class="calc-hint"><b>🧮 Tombol kalkulator</b><br>
+        Reset dulu: <code>MODE</code> → <code>2</code> (SD), lalu <code>SHIFT MODE 1 =</code> (Scl) → "Stat Clear".<br>
+        Input: <code>4 M+</code> <code>6 M+</code> <code>7 M+</code> <code>7 M+</code> <code>8 M+</code> <code>9 M+</code> <code>10 M+</code> <code>11 M+</code> <code>12 M+</code> <code>16 M+</code> (layar naik n=1…10).<br>
+        Mean: <code>SHIFT 2 1 =</code> → <b>9</b><br>
+        SD sampel: <code>SHIFT 2 3 =</code> → <b>3,4340…</b> (ini s). Variansi: langsung <code>x² =</code> → <b>11,78</b>.<br>
+        Median tetap manual (rata-rata data ke-5 &amp; ke-6): <code>(8 + 9) ÷ 2 =</code> → <b>8,5</b><br>
+        CV: <code>3,43 ÷ 9 × 100 =</code> → <b>38,1%</b><br>
+      </div>
       <ul class="tight">
         <li>$\sum X = 90$, $n = 10 \to$ <b>Mean $\bar{x} = \frac{90}{10} = \mathbf{9,00}$ komplain</b>.</li>
         <li>Data sudah urut. Median $= \frac{\text{data ke-5} + \text{data ke-6}}{2} = \frac{8 + 9}{2} = \mathbf{8,50}$.</li>
@@ -154,6 +172,12 @@ Ketik: 20 -> Tekan [M+]  -> Layar muncul: n=5</div>
     <p>Tentukan: (a) $Q_1$, (b) $Q_3$, (c) $IQR$, (d) Apakah nilai 16 merupakan outlier?</p>
     <button class="reveal-btn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Lihat Pembahasan &amp; Kunci</button>
     <div class="reveal-content">
+      <div class="calc-hint"><b>🧮 Tombol kalkulator</b><br>
+        Q₁: <code>11 ÷ 4 =</code> → 2,75 (posisi), lalu <code>6 + 0,75 × (7 − 6) =</code> → <b>6,75</b><br>
+        Q₃: <code>33 ÷ 4 =</code> → 8,25, lalu <code>11 + 0,25 × (12 − 11) =</code> → <b>11,25</b><br>
+        IQR: <code>11,25 − 6,75 =</code> → <b>4,5</b><br>
+        Pagar atas: <code>11,25 + 1,5 × 4,5 =</code> → <b>18</b> (16 &lt; 18 → bukan outlier)<br>
+      </div>
       <ul class="tight">
         <li>Posisi $Q_1 = \frac{n+1}{4} = \frac{11}{4} = 2,75 \to \text{Data ke-2} + 0,75(\text{Data ke-3} - \text{Data ke-2}) = 6 + 0,75(7 - 6) = \mathbf{6,75}$.</li>
         <li>Posisi $Q_3 = \frac{3(n+1)}{4} = \frac{33}{4} = 8,25 \to \text{Data ke-8} + 0,25(\text{Data ke-9} - \text{Data ke-8}) = 11 + 0,25(12 - 11) = \mathbf{11,25}$.</li>
@@ -180,6 +204,12 @@ Ketik: 20 -> Tekan [M+]  -> Layar muncul: n=5</div>
     <p>Hitunglah Mean ($\bar{x}$) dan Standar Deviasi ($s$) sampel data tersebut!</p>
     <button class="reveal-btn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Lihat Pembahasan &amp; Kunci</button>
     <div class="reveal-content">
+      <div class="calc-hint"><b>🧮 Tombol kalkulator</b><br>
+        Isi midpoint + frekuensi sekaligus: <code>24,5 SHIFT ; 5 M+</code> → <code>34,5 SHIFT ; 12 M+</code> → <code>44,5 SHIFT ; 8 M+</code><br>
+        Mean: <code>SHIFT 2 1 =</code> → <b>35,7</b><br>
+        SD sampel: <code>SHIFT 2 3 =</code> → <b>7,2578…</b> (≈7,26). Variansi: <code>x² =</code> → <b>52,67</b><br>
+        Kalau kalkulator gak punya <code>;</code>: hitung manual <code>892,5 ÷ 25 =</code> buat mean, terus pakai rumus pembilang variansi.<br>
+      </div>
       <ul class="tight">
         <li>Mean $\bar{x} = \frac{\sum f \cdot m}{n} = \frac{892,5}{25} = \mathbf{35,70\text{ menit}}$.</li>
         <li>Pembilang variansi $= \sum f \cdot m^2 - \frac{(\sum f \cdot m)^2}{n} = 33.126,25 - \frac{(892,5)^2}{25} = 33.126,25 - \frac{796.556,25}{25} = 33.126,25 - 31.862,25 = \mathbf{1.264,00}$.</li>
@@ -201,6 +231,12 @@ Ketik: 20 -> Tekan [M+]  -> Layar muncul: n=5</div>
     <p>Hitunglah Nilai Harapan $E(X)$ dan Variansi $\text{Var}(X)$!</p>
     <button class="reveal-btn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Lihat Pembahasan &amp; Kunci</button>
     <div class="reveal-content">
+      <div class="calc-hint"><b>🧮 Tombol kalkulator</b><br>
+        E(X) sekali jalan: <code>1 × 0,2 + 2 × 0,5 + 3 × 0,2 + 4 × 0,1 =</code> → <b>2,2</b><br>
+        Σx²P(x): <code>1 × 0,2 + 4 × 0,5 + 9 × 0,2 + 16 × 0,1 =</code> → <b>5,6</b><br>
+        Var: <code>5,6 − 2,2x² =</code> → <b>0,76</b> (tombol <code>x²</code> otomatis kuadratin 2,2)<br>
+        σ: <code>√0,76 =</code> → <b>0,87</b><br>
+      </div>
       <ul class="tight">
         <li>$E(X) = (1)(0,20) + (2)(0,50) + (3)(0,20) + (4)(0,10) = 0,20 + 1,00 + 0,60 + 0,40 = \mathbf{2,20\text{ cangkir}}$.</li>
         <li>$\sum x^2 P(x) = (1^2)(0,20) + (2^2)(0,50) + (3^2)(0,20) + (4^2)(0,10) = 0,20 + 2,00 + 1,80 + 1,60 = \mathbf{5,60}$.</li>
@@ -216,6 +252,11 @@ Ketik: 20 -> Tekan [M+]  -> Layar muncul: n=5</div>
     <p>Sebuah tes pilihan ganda memiliki 5 soal ($n = 5$), masing-masing 4 opsi jawaban ($p = 0,25$). Seorang mahasiswa menjawab murni dengan menebak acak. Berapa peluang ia menjawab <b>tepat 3 soal dengan benar</b>?</p>
     <button class="reveal-btn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Lihat Pembahasan &amp; Kunci</button>
     <div class="reveal-content">
+      <div class="calc-hint"><b>🧮 Tombol kalkulator</b><br>
+        Kombinasi: <code>5 nCr 3 =</code> → <b>10</b><br>
+        Peluang: <code>10 × 0,25x³ × 0,75x² =</code> → <b>0,0879</b><br>
+        Kalau gak ada <code>x^</code>: <code>0,25 × 0,25 × 0,25 =</code>, <code>0,75 × 0,75 =</code>, lalu kalikan 10.<br>
+      </div>
       <ul class="tight">
         <li>${}_5C_3 = \frac{5!}{3! \cdot 2!} = 10$.</li>
         <li>$P(X = 3) = 10 \times (0,25)^3 \times (0,75)^{5 - 3} = 10 \times 0,015625 \times (0,75)^2 = 0,15625 \times 0,5625 = \mathbf{0,0879 (8,79\%)}$.</li>
@@ -229,6 +270,11 @@ Ketik: 20 -> Tekan [M+]  -> Layar muncul: n=5</div>
     <p>Rata-rata terdapat 2 kesalahan ketik per halaman naskah novel ($\lambda = 2$). Berapa peluang dalam satu halaman acak terdapat <b>tepat 1 kesalahan ketik</b>?</p>
     <button class="reveal-btn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Lihat Pembahasan &amp; Kunci</button>
     <div class="reveal-content">
+      <div class="calc-hint"><b>🧮 Tombol kalkulator</b><br>
+        e⁻²: <code>SHIFT ln (−) 2 =</code> → <b>0,135335</b><br>
+        Lanjut: <code>× 2 ÷ 1 =</code> (1! = 1) → <b>0,2707</b><br>
+        Kalau gak ada <code>eˣ</code>: <code>2,71828 x²</code> lalu <code>SHIFT 1/x</code> (jadi 1/e²).<br>
+      </div>
       <ul class="tight">
         <li>$P(X = 1) = \frac{e^{-2} \times 2^1}{1!} = \frac{0,135335 \times 2}{1} = \mathbf{0,2707 (27,07\%)}$.</li>
       </ul>
@@ -241,6 +287,12 @@ Ketik: 20 -> Tekan [M+]  -> Layar muncul: n=5</div>
     <p>Daya tahan baterai ponsel berdistribusi normal dengan rata-rata $\mu = 14\text{ jam}$ dan simpangan baku $\sigma = 2\text{ jam}$. Berapa persentase baterai yang mampu bertahan <b>antara 11 jam hingga 17 jam</b>?</p>
     <button class="reveal-btn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Lihat Pembahasan &amp; Kunci</button>
     <div class="reveal-content">
+      <div class="calc-hint"><b>🧮 Tombol kalkulator</b><br>
+        Z batas bawah: <code>(11 − 14) ÷ 2 =</code> → <b>−1,5</b><br>
+        Z batas atas: <code>(17 − 14) ÷ 2 =</code> → <b>1,5</b><br>
+        Luas tabel Z dibaca MANUAL (kalkulator gak punya): 0,0668 dan 0,9332<br>
+        Selisih: <code>0,9332 − 0,0668 =</code> → <b>0,8664</b><br>
+      </div>
       <ul class="tight">
         <li>$Z_{11} = \frac{11 - 14}{2} = -1,50 \to$ Luas kiri tabel Z $= \mathbf{0,0668}$.</li>
         <li>$Z_{17} = \frac{17 - 14}{2} = +1,50 \to$ Luas kiri tabel Z $= \mathbf{0,9332}$.</li>
@@ -255,6 +307,11 @@ Ketik: 20 -> Tekan [M+]  -> Layar muncul: n=5</div>
     <p>Masih dari data baterai ponsel di Soal 9 ($\mu = 14$, $\sigma = 2$). Produsen ingin memberikan garansi ganti baru untuk <b>2,5% ponsel dengan daya tahan baterai terpendek</b>. Berapa jam batas daya tahan maksimum agar masih memenuhi syarat garansi?</p>
     <button class="reveal-btn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Lihat Pembahasan &amp; Kunci</button>
     <div class="reveal-content">
+      <div class="calc-hint"><b>🧮 Tombol kalkulator</b><br>
+        Z = −1,96 dicari dari tabel (bukan tombol): cari luas 0,0250.<br>
+        Konversi: <code>1,96 × 2 =</code> → 3,92, lalu <code>14 − 3,92 =</code> → <b>10,08</b><br>
+        Cek cepat: <code>14 + (−1,96 × 2) =</code> → 10,08 jam.<br>
+      </div>
       <ul class="tight">
         <li>2,5% terpendek berada di ekor kiri paling bawah $\to$ Cari luas tabel $= 0,0250$.</li>
         <li>Di tabel Z: nilai luas $0,0250$ persis berada pada baris $-1,9$ kolom $0,06 \to Z = \mathbf{-1,96}$.</li>

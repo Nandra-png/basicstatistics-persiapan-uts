@@ -219,6 +219,9 @@ ul.tight li{margin:6px 0;font-size:14.5px;line-height:1.65}
 .worked h4{margin:0 0 8px;font-size:14px;color:var(--ok);font-weight:800;letter-spacing:.03em;text-transform:uppercase}
 
 /* ---------- drill "tebak rumus" ---------- */
+.calc-hint{margin-top:12px;padding:10px 12px;border-left:3px solid #0f766e;background:#eef7f4;border-radius:0 6px 6px 0;font-size:13px;line-height:1.85}
+.calc-hint b{color:#0f766e}
+.calc-hint code{background:#fff;border:1px solid #cfe3dc;border-radius:4px;padding:1px 5px;font-family:Consolas,monospace;font-size:12px;white-space:nowrap}
 .drill-opts{display:grid;gap:7px;margin:9px 0}
 .drill-opts button{font:inherit;font-size:13.5px;text-align:left;cursor:pointer;padding:9px 13px;
   border:1.5px solid #cfc6af;border-radius:7px;background:#fff;color:var(--ink);transition:.12s}
